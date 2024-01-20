@@ -4,54 +4,97 @@
 #include "guid.h"
 #include "efi_types.h"
 
+// Variable-size array
+#define ANYSIZE_ARRAY 1
+
 // Event types
-#define EVT_TIMER								0x80000000
-#define EVT_RUNTIME								0x40000000
+#define EVT_TIMER												0x80000000
+#define EVT_RUNTIME												0x40000000
 
-#define EVT_NOTIFY_WAIT							0x00000100
-#define EVT_NOTIFY_SIGNAL						0x00000200
+#define EVT_NOTIFY_WAIT											0x00000100
+#define EVT_NOTIFY_SIGNAL										0x00000200
 
-#define EVT_SIGNAL_EXIT_BOOT_SERVICES			0x00000201
-#define EVT_SIGNAL_VIRTUAL_ADDRESS_CHANGE		0x60000202
+#define EVT_SIGNAL_EXIT_BOOT_SERVICES							0x00000201
+#define EVT_SIGNAL_VIRTUAL_ADDRESS_CHANGE						0x60000202
 //
 
 // Task Priority Levels
-#define TPL_APPLICATION							4
-#define TPL_CALLBACK							8
-#define TPL_NOTIFY								16
-#define TPL_HIGH_LEVEL							31
+#define TPL_APPLICATION											4
+#define TPL_CALLBACK											8
+#define TPL_NOTIFY												16
+#define TPL_HIGH_LEVEL											31
+//
+
+// OS Indications
+#define EFI_OS_INDICATIONS_BOOT_TO_FW_UI						0x0000000000000001
+#define EFI_OS_INDICATIONS_TIMESTAMP_REVOCATION					0x0000000000000002
+#define EFI_OS_INDICATIONS_FILE_CAPSULE_DELIVERY_SUPPORTED		0x0000000000000004
+#define EFI_OS_INDICATIONS_FMP_CAPSULE_SUPPORTED				0x0000000000000008
+#define EFI_OS_INDICATIONS_CAPSULE_RESULT_VAR_SUPPORTED			0x0000000000000010
+#define EFI_OS_INDICATIONS_START_OS_RECOVERY					0x0000000000000020
+#define EFI_OS_INDICATIONS_START_PLATFORM_RECOVERY				0x0000000000000040
+#define EFI_OS_INDICATIONS_JSON_CONFIG_DATA_REFRESH				0x0000000000000080
 //
 
 // Memory Attributes
-#define EFI_MEMORY_UC							0x0000000000000001
-#define EFI_MEMORY_WC							0x0000000000000002
-#define EFI_MEMORY_WT							0x0000000000000004
-#define EFI_MEMORY_WB							0x0000000000000008
-#define EFI_MEMORY_UCE							0x0000000000000010
-#define EFI_MEMORY_WP							0x0000000000001000
-#define EFI_MEMORY_RP							0x0000000000002000
-#define EFI_MEMORY_XP							0x0000000000004000
-#define EFI_MEMORY_NV							0x0000000000008000
-#define EFI_MEMORY_MORE_RELIABLE				0x0000000000010000
-#define EFI_MEMORY_RO							0x0000000000020000
-#define EFI_MEMORY_SP							0x0000000000040000
-#define EFI_MEMORY_CPU_CRYPTO					0x0000000000080000
-#define EFI_MEMORY_RUNTIME						0x8000000000000000
-#define EFI_MEMORY_ISA_VALID					0x4000000000000000
-#define EFI_MEMORY_ISA_MASK						0x0FFFF00000000000
+#define EFI_MEMORY_UC											0x0000000000000001
+#define EFI_MEMORY_WC											0x0000000000000002
+#define EFI_MEMORY_WT											0x0000000000000004
+#define EFI_MEMORY_WB											0x0000000000000008
+#define EFI_MEMORY_UCE											0x0000000000000010
+#define EFI_MEMORY_WP											0x0000000000001000
+#define EFI_MEMORY_RP											0x0000000000002000
+#define EFI_MEMORY_XP											0x0000000000004000
+#define EFI_MEMORY_NV											0x0000000000008000
+#define EFI_MEMORY_MORE_RELIABLE								0x0000000000010000
+#define EFI_MEMORY_RO											0x0000000000020000
+#define EFI_MEMORY_SP											0x0000000000040000
+#define EFI_MEMORY_CPU_CRYPTO									0x0000000000080000
+#define EFI_MEMORY_RUNTIME										0x8000000000000000
+#define EFI_MEMORY_ISA_VALID									0x4000000000000000
+#define EFI_MEMORY_ISA_MASK										0x0FFFF00000000000
 //
 
+// Capsule Flags
+#define CAPSULE_FLAGS_PERSIST_ACROSS_RESET						0x00010000
+#define CAPSULE_FLAGS_POPULATE_SYSTEM_TABLE						0x00020000
+#define CAPSULE_FLAGS_INITIATE_RESET							0x00040000
+//
+
+// Time
+#define EFI_TIME_ADJUST_DAYLIGHT								0x01
+#define EFI_TIME_IN_DAYLIGHT									0x02
+
+#define EFI_UNSPECIFIED_TIMEZONE								0x07FF
+//
+
+// Optional Pointer
+#define EFI_OPTIONAL_PTR										0x00000001
+//
+
+// Variable Attributes
+#define EFI_VARIABLE_NON_VOLATILE								0x00000001
+#define EFI_VARIABLE_BOOTSERVICE_ACCESS							0x00000002
+#define EFI_VARIABLE_RUNTIME_ACCESS								0x00000004
+#define EFI_VARIABLE_HARDWARE_ERROR_RECORD						0x00000008
+// NOTE: EFI_VARIABLE_AUTHENTICATED_WRITE_ACCESS is deprecated
+// and should be considered reserved.
+#define EFI_VARIABLE_AUTHENTICATED_WRITE_ACCESS					0x00000010
+#define EFI_VARIABLE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS		0x00000020
+#define EFI_VARIABLE_APPEND_WRITE								0x00000040
+#define EFI_VARIABLE_ENHANCED_AUTHENTICATED_ACCESS				0x00000080
+
 // EFI Open Protocol Attributes
-#define EFI_OPEN_PROTOCOL_BY_HANDLE_PROTOCOL	0x00000001
-#define EFI_OPEN_PROTOCOL_GET_PROTOCOL			0x00000002
-#define EFI_OPEN_PROTOCOL_TEST_PROTOCOL			0x00000004
-#define EFI_OPEN_PROTOCOL_BY_CHILD_CONTROLLER	0x00000008
-#define EFI_OPEN_PROTOCOL_BY_DRIVER				0x00000010
-#define EFI_OPEN_PROTOCOL_EXCLUSIVE				0x00000020
+#define EFI_OPEN_PROTOCOL_BY_HANDLE_PROTOCOL					0x00000001
+#define EFI_OPEN_PROTOCOL_GET_PROTOCOL							0x00000002
+#define EFI_OPEN_PROTOCOL_TEST_PROTOCOL							0x00000004
+#define EFI_OPEN_PROTOCOL_BY_CHILD_CONTROLLER					0x00000008
+#define EFI_OPEN_PROTOCOL_BY_DRIVER								0x00000010
+#define EFI_OPEN_PROTOCOL_EXCLUSIVE								0x00000020
 //
 
 // Memory Descriptor Version Number
-#define EFI_MEMORY_DESCRIPTOR_VERSION			1
+#define EFI_MEMORY_DESCRIPTOR_VERSION							1
 
 // EFI Simple Text Input Protocol
 typedef struct EFI_SIMPLE_TEXT_INPUT_PROTOCOL EFI_SIMPLE_TEXT_INPUT_PROTOCOL;
@@ -79,6 +122,27 @@ typedef struct EFI_GUID {
 	UINT8 Data4[8];
 } EFI_GUID;
 
+// EFI Certificate RSA2048 SHA256 Block
+typedef struct _EFI_CERT_BLOCK_RSA_2048_SHA256 {
+	EFI_GUID HashType;
+	UINT8 PublicKey[256];
+	UINT8 Signature[256];
+} EFI_CERT_BLOCK_RSA_2048_SHA256;
+
+// EFI WinCertificate
+typedef struct _WIN_CERTIFICATE {
+	UINT32 dwLength;
+	UINT16 wRevision;
+	UINT16 wCertificateType;
+	UINT8 bCertificate[ANYSIZE_ARRAY];
+} WIN_CERTIFICATE;
+
+typedef struct _WIN_CERTIFICATE_UEFI_GUID {
+	WIN_CERTIFICATE Hdr;
+	EFI_GUID CertType;
+	UINT8 CertData[ANYSIZE_ARRAY];
+} WIN_CERTIFICATE_UEFI_GUID;
+
 // EFI Simple Text Output Mode
 typedef struct {
 	INT32 MaxNode;
@@ -97,6 +161,28 @@ typedef struct {
 	CHAR16 UnicodeChar;
 } EFI_INPUT_KEY;
 
+// EFI Time
+typedef struct {
+	UINT16 Year;
+	UINT8 Month;
+	UINT8 Day;
+	UINT8 Hour;
+	UINT8 Minute;
+	UINT8 Second;
+	UINT8 Pad1;
+	UINT32 Nanosecond;
+	INT16 TimeZone;
+	UINT8 Daylight;
+	UINT8 Pad2;
+} EFI_TIME;
+
+// EFI Time Capabilities
+typedef struct {
+	UINT32 Resolution;
+	UINT32 Accuracy;
+	BOOLEAN SetsToZero;
+} EFI_TIME_CAPABILITIES;
+
 // EFI HII Package List Header
 typedef struct {
 	EFI_GUID PackageListGuid;
@@ -112,6 +198,12 @@ typedef struct {
 	UINT32 Reserved;
 } EFI_TABLE_HEADER;
 
+// EFI Variable Authentication
+typedef struct {
+	UINT64 MonotonicCount;
+	WIN_CERTIFICATE_UEFI_GUID AuthInfo;
+} EFI_VARIABLE_AUTHENTICATION;
+
 // EFI Memory Descriptor
 typedef struct {
 	UINT32 Type;
@@ -120,6 +212,65 @@ typedef struct {
 	UINT64 NumberOfPages;
 	UINT64 Attribute;
 } EFI_MEMORY_DESCRIPTOR;
+
+typedef struct {
+	EFI_PHYSICAL_ADDRESS Address;
+	UINT64 Length;
+} EFI_MEMORY_RANGE;
+
+// EFI Capsule Header
+typedef struct {
+	EFI_GUID CapsuleGuid;
+	UINT32 HeaderSize;
+	UINT32 Flags;
+	UINT32 CapsuleImageSize;
+} EFI_CAPSULE_HEADER;
+
+// EFI Capsule Block
+typedef struct {
+	UINT64 Length;
+	union {
+		EFI_PHYSICAL_ADDRESS DataBlock;
+		EFI_PHYSICAL_ADDRESS ContinuationPointer;
+	} Union;
+} EFI_CAPSULE_BLOCK_DESCRIPTOR;
+
+// EFI Memory Range Capsule
+typedef struct {
+	EFI_CAPSULE_HEADER Header;
+	UINT32 OsRequestedMemoryType;
+	UINT64 NumberOfMemoryRanges;
+	EFI_MEMORY_RANGE MemoryRanges[];
+} EFI_MEMORY_RANGE_CAPSULE;
+
+typedef struct {
+	UINT64 FirmwareMemoryRequirement;
+	UINT64 NumberOfMemoryRanges;
+} EFI_MEMORY_RANGE_CAPSULE_RESULT;
+
+typedef struct {
+	UINT32 VariableTotalSize;
+	UINT32 Reserved;
+	EFI_GUID CapsuleGuid;
+	EFI_TIME CapsuleProcessed;
+	EFI_STATUS CapsuleStatus;
+} EFI_CAPSULE_RESULT_VARIABLE_HEADER;
+
+typedef struct {
+	UINT16 Version;
+	UINT8 PayloadIndex;
+	UINT8 UpdateImageIndex;
+	EFI_GUID UpdateImageTypeId;
+	//CHAR16 CapsuleFileName[];
+	//CHAR16 CapsuleTarget[];
+} EFI_CAPSULE_RESULT_VARIABLE_FMP;
+
+typedef struct {
+	UINT32 Version;
+	UINT32 CapsuleId;
+	UINT32 RespLength;
+	UINT8 Resp[];
+} EFI_CAPSULE_RESULT_VARIABLE_JSON;
 
 // Open Protocol Information Entry
 typedef struct {
@@ -285,12 +436,108 @@ EFI_STATUS
 
 typedef
 EFI_STATUS
+(EFIAPI *EFI_GET_NEXT_VARIABLE_NAME)(
+	IN OUT UINTN *VariableNameSize,
+	IN OUT CHAR16 *VariableName,
+	IN OUT EFI_GUID *VendorGuid
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_SET_VARIABLE)(
+	IN CHAR16 *VariableName,
+	IN EFI_GUID *VendorGuid,
+	IN UINT32 Attributes,
+	IN UINTN DataSize,
+	IN VOID *Data
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_QUERY_VARIABLE_INFO)(
+	IN UINT32 Attributes,
+	OUT UINT64 *MaximumVariableStorageSize,
+	OUT UINT64 *RemainingVariableStorageSize,
+	OUT UINT64 *MaximumVariableSize
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_GET_TIME)(
+	OUT EFI_TIME *Time,
+	OUT EFI_TIME_CAPABILITIES *Capabilities OPTIONAL
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_SET_TIME)(
+	IN EFI_TIME *Time
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_GET_WAKEUP_TIME)(
+	OUT BOOLEAN *Enable,
+	OUT BOOLEAN *Pending,
+	OUT EFI_TIME *Time
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_SET_WAKEUP_TIME)(
+	IN BOOLEAN Enable,
+	IN EFI_TIME *Time
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_SET_VIRTUAL_ADDRESS_MAP)(
+	IN UINTN MemoryMapSize,
+	IN UINTN DescriptorSize,
+	IN UINT32 DescriptorVersion,
+	IN EFI_MEMORY_DESCRIPTOR *VirtualMap
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_CONVERT_POINTER)(
+	IN UINTN DebugDisposition,
+	IN VOID **Address
+);
+
+typedef
+EFI_STATUS
 (EFIAPI *EFI_RESET_SYSTEM)(
 	IN EFI_RESET_TYPE ResetType,
 	IN EFI_STATUS ResetStatus,
 	IN UINTN DataSize,
 	IN VOID *ResetData OPTIONAL
 );
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_GET_NEXT_HIGH_MONOTONIC_COUNT)(
+	OUT UINT32 *HighCount
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_UPDATE_CAPSULE)(
+	IN EFI_CAPSULE_HEADER **CapsuleHeaderArray,
+	IN UINTN CapsuleCount,
+	IN EFI_PHYSICAL_ADDRESS ScatterGatherList OPTIONAL
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_QUERY_CAPSULE_CAPABILITIES)(
+	IN EFI_CAPSULE_HEADER **CapsuleHeaderArray,
+	IN UINTN CapsuleCount,
+	OUT UINT64 *MaximumCapsuleSize,
+	OUT EFI_RESET_TYPE *ResetType
+);
+
+
 
 // EFI Boot Services
 
@@ -684,30 +931,30 @@ typedef struct EFI_RUNTIME_SERVICES {
 	EFI_TABLE_HEADER Hdr;
 
 	// Time Services
-	void *GetTime; 
-	void *SetTime; 
-	void *GetWakeupTime; 
-	void *SetWakeupTime; 
+	EFI_GET_TIME GetTime; 
+	EFI_SET_TIME SetTime; 
+	EFI_GET_WAKEUP_TIME GetWakeupTime; 
+	EFI_SET_WAKEUP_TIME SetWakeupTime; 
 
 	// Virtual Memory Services
-	void *SetVirtualAddressMap;
-	void *ConvertPointer;
+	EFI_SET_VIRTUAL_ADDRESS_MAP SetVirtualAddressMap;
+	EFI_CONVERT_POINTER ConvertPointer;
 
 	// Variable Services
 	EFI_GET_VARIABLE GetVariable;
-	void *GetNextVariableName;
-	void *SetVariable;
+	EFI_GET_NEXT_VARIABLE_NAME GetNextVariableName;
+	EFI_SET_VARIABLE SetVariable;
 
 	// Miscellaneous Services
-	void *GetNextHighMonotonicCount;
+	EFI_GET_NEXT_HIGH_MONOTONIC_COUNT GetNextHighMonotonicCount;
 	EFI_RESET_SYSTEM ResetSystem;
 
 	// UEFI 2.0 Capsule Services
-	void *UpdateCapsule;
-	void *QueryCapsuleCapabilities;
+	EFI_UPDATE_CAPSULE UpdateCapsule;
+	EFI_QUERY_CAPSULE_CAPABILITIES QueryCapsuleCapabilities;
 
 	// Miscellaneous UEFI 2.0 Service
-	void *QueryVariableInfo; 
+	EFI_QUERY_VARIABLE_INFO QueryVariableInfo; 
 } EFI_RUNTIME_SERVICES;
 
 // EFI Boot Services
@@ -781,6 +1028,12 @@ typedef struct EFI_BOOT_SERVICES {
 	EFI_SET_MEM SetMem;
 	EFI_CREATE_EVENT_EX CreateEventEx;
 } EFI_BOOT_SERVICES;
+
+// EFI Capsule Table
+typedef struct {
+	UINT32 CapsuleArrayNumber;
+	VOID *CapsulePtr[ANYSIZE_ARRAY];
+} EFI_CAPSULE_TABLE;
 
 // EFI System Table
 typedef struct EFI_SYSTEM_TABLE {
