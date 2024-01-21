@@ -25,6 +25,26 @@
 #define TPL_HIGH_LEVEL											31
 //
 
+// EFI System Table Revisions
+#define EFI_SYSTEM_TABLE_SIGNATURE								0x5453595320494249
+#define EFI_2_100_SYSTEM_TABLE_REVISION							((2<<16) | (100))
+#define EFI_2_90_SYSTEM_TABLE_REVISION							((2<<16) | (90))
+#define EFI_2_80_SYSTEM_TABLE_REVISION							((2<<16) | (80))
+#define EFI_2_70_SYSTEM_TABLE_REVISION							((2<<16) | (70))
+#define EFI_2_60_SYSTEM_TABLE_REVISION							((2<<16) | (60))
+#define EFI_2_50_SYSTEM_TABLE_REVISION							((2<<16) | (50))
+#define EFI_2_40_SYSTEM_TABLE_REVISION							((2<<16) | (40))
+#define EFI_2_31_SYSTEM_TABLE_REVISION							((2<<16) | (31))
+#define EFI_2_30_SYSTEM_TABLE_REVISION							((2<<16) | (30))
+#define EFI_2_20_SYSTEM_TABLE_REVISION							((2<<16) | (20))
+#define EFI_2_10_SYSTEM_TABLE_REVISION							((2<<16) | (10))
+#define EFI_2_00_SYSTEM_TABLE_REVISION							((2<<16) | (00))
+#define EFI_1_10_SYSTEM_TABLE_REVISION							((1<<16) | (10))
+#define EFI_1_02_SYSTEM_TABLE_REVISION							((1<<16) | (02))
+#define EFI_SPECIFICATION_VERSION								EFI_SYSTEM_TABLE_REVISION
+#define EFI_SYSTEM_TABLE_REVISION								EFI_2_100_SYSTEM_TABLE_REVISION
+//
+
 // OS Indications
 #define EFI_OS_INDICATIONS_BOOT_TO_FW_UI						0x0000000000000001
 #define EFI_OS_INDICATIONS_TIMESTAMP_REVOCATION					0x0000000000000002
@@ -353,6 +373,13 @@ EFI_STATUS
 (EFIAPI *EFI_INPUT_READ_KEY)(
 	IN EFI_SIMPLE_TEXT_INPUT_PROTOCOL *This, 
 	OUT EFI_INPUT_KEY *Key
+);
+
+typedef
+EFI_STATUS
+(EFIAPI *EFI_INPUT_RESET)(
+	IN EFI_SIMPLE_TEXT_INPUT_PROTOCOL *This,
+	IN BOOLEAN ExtendedVerification
 );
 
 // EFI Simple Text Output Protocol
@@ -907,9 +934,9 @@ typedef struct EFI_DEVICE_PATH_PROTOCOL {
 
 // EFI Simple Text Input Protocol
 typedef struct EFI_SIMPLE_TEXT_INPUT_PROTOCOL {
-	void *Reset;
+	EFI_INPUT_RESET Reset;
 	EFI_INPUT_READ_KEY ReadKeyStroke;
-	void *WaitForKey;
+	EFI_EVENT WaitForKey;
 } EFI_SIMPLE_TEXT_INPUT_PROTOCOL;
 
 // EFI Simple Text Output Protocol
@@ -986,7 +1013,7 @@ typedef struct EFI_BOOT_SERVICES {
 	EFI_REINSTALL_PROTOCOL_INTERFACE ReinstallProtocolInterface;
 	EFI_UNINSTALL_PROTOCOL_INTERFACE UninstallProtocolInterface;
 	EFI_HANDLE_PROTOCOL HandleProtocol;
-	void *Reserved;
+	VOID *Reserved;
 	EFI_REGISTER_PROTOCOL_NOTIFY RegisterProtocolNotify;
 	EFI_LOCATE_HANDLE LocateHandle;
 	EFI_LOCATE_DEVICE_PATH LocateDevicePath;
@@ -1035,22 +1062,28 @@ typedef struct {
 	VOID *CapsulePtr[ANYSIZE_ARRAY];
 } EFI_CAPSULE_TABLE;
 
+// EFI Configuration Table
+typedef struct {
+	EFI_GUID VendorGuid;
+	VOID *VendorTable;
+} EFI_CONFIGURATION_TABLE;
+
 // EFI System Table
 typedef struct EFI_SYSTEM_TABLE {
 	EFI_TABLE_HEADER Hdr;
 
-	void *FirmwareVendor;
+	CHAR16 *FirmwareVendor;
 	UINT32 FirmwareRevision;
-	void *ConsoleInHandle;
+	EFI_HANDLE ConsoleInHandle;
 	EFI_SIMPLE_TEXT_INPUT_PROTOCOL *ConIn;
-	void *ConsoleOutHandle;
+	EFI_HANDLE ConsoleOutHandle;
 	EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *ConOut;
-	void *StandardErrorHandle;
-	void *StdErr;
+	EFI_HANDLE StandardErrorHandle;
+	EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *StdErr;
 	EFI_RUNTIME_SERVICES *RuntimeServices;
 	EFI_BOOT_SERVICES *BootServices;
 	UINTN NumberOfTableEntries;
-	void *ConfigurationTable;
+	EFI_CONFIGURATION_TABLE *ConfigurationTable;
 } EFI_SYSTEM_TABLE;
 
 #endif /* EFI_H */
