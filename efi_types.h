@@ -50,26 +50,59 @@ typedef UINT64 EFI_VIRTUAL_ADDRESS;
 typedef UINTN EFI_TPL;
 
 // EFI Status Codes
-#define EFI_SUCCESS 0
+#define EFI_SUCCESS													(0x00)
+#define EFI_LOAD_ERROR												(0x8000000000000001)
+#define EFI_INVALID_PARAMETER										(0x8000000000000002)
+#define EFI_UNSUPPORTED												(0x8000000000000003)
+#define EFI_BAD_BUFFER_SIZE											(0x8000000000000004)
+#define EFI_BUFFER_TOO_SMALL										(0x8000000000000005)
+#define EFI_NOT_READY												(0x8000000000000006)
+#define EFI_DEVICE_ERROR											(0x8000000000000007)
+#define EFI_WRITE_PROTECTED											(0x8000000000000008)
+#define EFI_OUT_OF_RESOURCES										(0x8000000000000009)
+#define EFI_VOLUME_CORRUPTED										(0x800000000000000A)
+#define EFI_VOLUME_FULL												(0x800000000000000B)
+#define EFI_NO_MEDIA												(0x800000000000000C)
+#define EFI_MEDIA_CHANGED											(0x800000000000000D)
+#define EFI_NOT_FOUND												(0x800000000000000E)
+#define EFI_ACCESS_DENIED											(0x800000000000000F)
+#define EFI_NO_RESPONSE												(0x8000000000000010)
+#define EFI_NO_MAPPING												(0x8000000000000011)
+#define EFI_TIMEOUT													(0x8000000000000012)
+#define EFI_NOT_STARTED												(0x8000000000000013)
+#define EFI_ALREADY_STARTED											(0x8000000000000014)
+#define EFI_ABORTED													(0x8000000000000015)
+#define EFI_ICMP_ERROR												(0x8000000000000016)
+#define EFI_TFTP_ERROR												(0x8000000000000017)
+#define EFI_PROTOCOL_ERROR											(0x8000000000000018)
+#define EFI_INCOMPATIBLE_VERSION									(0x8000000000000019)
+#define EFI_SECURITY_VIOLATION										(0x800000000000001A)
+#define EFI_CRC_ERROR												(0x800000000000001B)
+#define EFI_END_OF_MEDIA											(0x800000000000001C)
+#define EFI_END_OF_FILE												(0x800000000000001F)
+#define EFI_INVALID_LANGUAGE										(0x8000000000000020)
+#define EFI_COMPROMISED_DATA										(0x8000000000000021)
+#define EFI_IP_ADDRESS_CONFLICT										(0x8000000000000022)
+#define EFI_HTTP_ERROR												(0x8000000000000023)
 
 // Text color attributes
-#define EFI_BLACK 0x00
-#define EFI_BLUE 0x01
-#define EFI_GREEN 0x02
-#define EFI_CYAN 0x03
-#define EFI_RED 0x04
-#define EFI_MAGENTA 0x05
-#define EFI_BROWN 0x06
-#define EFI_LIGHTGRAY 0x07
-#define EFI_BRIGHT 0x08
-#define EFI_DARKGRAY (EFI_BLACK | EFI_BRIGHT) 0x08
-#define EFI_LIGHTBLUE 0x09
-#define EFI_LIGHTGREEN 0x0A
-#define EFI_LIGHTCYAN 0x0B
-#define EFI_LIGHTRED 0x0C
-#define EFI_LIGHTMAGENTA 0x0D
-#define EFI_YELLOW 0x0E
-#define EFI_WHITE 0x0F
+#define EFI_BLACK										0x00
+#define EFI_BLUE										0x01
+#define EFI_GREEN										0x02
+#define EFI_CYAN										0x03
+#define EFI_RED											0x04
+#define EFI_MAGENTA										0x05
+#define EFI_BROWN										0x06
+#define EFI_LIGHTGRAY									0x07
+#define EFI_BRIGHT										0x08
+#define EFI_DARKGRAY									(EFI_BLACK | EFI_BRIGHT) 0x08
+#define EFI_LIGHTBLUE									0x09
+#define EFI_LIGHTGREEN									0x0A
+#define EFI_LIGHTCYAN									0x0B
+#define EFI_LIGHTRED									0x0C
+#define EFI_LIGHTMAGENTA								0x0D
+#define EFI_YELLOW										0x0E
+#define EFI_WHITE										0x0F
 
 // Text background colors
 #define EFI_BACKGROUND_BLACK 0x00

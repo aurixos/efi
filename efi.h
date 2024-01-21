@@ -3,6 +3,7 @@
 
 #include "guid.h"
 #include "efi_types.h"
+#include "efilib.h"
 
 // Variable-size array
 #define ANYSIZE_ARRAY 1
