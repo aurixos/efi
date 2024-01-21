@@ -164,14 +164,6 @@ typedef struct EFI_BOOT_SERVICES EFI_BOOT_SERVICES;
 // EFI System Table
 typedef struct EFI_SYSTEM_TABLE EFI_SYSTEM_TABLE;
 
-// EFI GUID
-typedef struct EFI_GUID {
-	UINT32 Data1;
-	UINT16 Data2;
-	UINT16 Data3;
-	UINT8 Data4[8];
-} EFI_GUID;
-
 // EFI Certificate RSA2048 SHA256 Block
 typedef struct _EFI_CERT_BLOCK_RSA_2048_SHA256 {
 	EFI_GUID HashType;
