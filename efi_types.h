@@ -49,6 +49,17 @@ typedef UINT64 EFI_VIRTUAL_ADDRESS;
 // Task Priority Level
 typedef UINTN EFI_TPL;
 
+// String ID
+typedef UINT16 EFI_STRING_ID;
+
+// HII Handle
+typedef VOID *EFI_HII_HANDLE;
+
+// EFI Mac Address
+typedef struct {
+	UINT8 Addr[32];
+} EFI_MAC_ADDRESS;
+
 // EFI Status Codes
 #define EFI_SUCCESS													(0x00)
 #define EFI_LOAD_ERROR												(0x8000000000000001)
