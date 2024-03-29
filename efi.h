@@ -55,7 +55,7 @@ typedef struct {
 #include "efi_rs.h"
 #include "efi_bs.h"
 
-// #include "protocols/boot_manager_policy.h"
+#include "protocols/boot_manager_policy.h"
 #include "protocols/bus_specific_driver_override.h"
 #include "protocols/device_path.h"
 #include "protocols/driver_binding.h"
