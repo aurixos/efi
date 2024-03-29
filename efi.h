@@ -27,28 +27,6 @@ typedef struct {
 #define TPL_HIGH_LEVEL											31
 //
 
-// OS Indications
-#define EFI_OS_INDICATIONS_BOOT_TO_FW_UI						0x0000000000000001
-#define EFI_OS_INDICATIONS_TIMESTAMP_REVOCATION					0x0000000000000002
-#define EFI_OS_INDICATIONS_FILE_CAPSULE_DELIVERY_SUPPORTED		0x0000000000000004
-#define EFI_OS_INDICATIONS_FMP_CAPSULE_SUPPORTED				0x0000000000000008
-#define EFI_OS_INDICATIONS_CAPSULE_RESULT_VAR_SUPPORTED			0x0000000000000010
-#define EFI_OS_INDICATIONS_START_OS_RECOVERY					0x0000000000000020
-#define EFI_OS_INDICATIONS_START_PLATFORM_RECOVERY				0x0000000000000040
-#define EFI_OS_INDICATIONS_JSON_CONFIG_DATA_REFRESH				0x0000000000000080
-//
-
-// Time
-#define EFI_TIME_ADJUST_DAYLIGHT								0x01
-#define EFI_TIME_IN_DAYLIGHT									0x02
-
-#define EFI_UNSPECIFIED_TIMEZONE								0x07FF
-//
-
-// Optional Pointer
-#define EFI_OPTIONAL_PTR										0x00000001
-//
-
 // Variable Attributes
 #define EFI_VARIABLE_NON_VOLATILE								0x00000001
 #define EFI_VARIABLE_BOOTSERVICE_ACCESS							0x00000002
@@ -76,6 +54,18 @@ typedef struct {
 #include "efi_st.h"
 #include "efi_rs.h"
 #include "efi_bs.h"
+
+// #include "protocols/boot_manager_policy.h"
+#include "protocols/bus_specific_driver_override.h"
+#include "protocols/device_path.h"
+#include "protocols/driver_binding.h"
+#include "protocols/file.h"
+#include "protocols/loaded_image.h"
+#include "protocols/loaded_image_device_path.h"
+#include "protocols/platform_driver_override.h"
+#include "protocols/simple_file_system.h"
+#include "protocols/simple_text_input.h"
+#include "protocols/simple_text_output.h"
 
 #define EFI_ERROR(Status)								(((INTN)(EFI_STATUS)(Status)) < 0)
 

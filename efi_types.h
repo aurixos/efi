@@ -118,12 +118,4 @@ typedef UINTN EFI_TPL;
 #define EFI_TEXT_ATTR(Foreground,Background) \
 	((Foreground) | ((Background) << 4))
 
-// EFI Reset Type
-typedef enum {
-	EfiResetCold,
-	EfiResetWarm,
-	EfiResetShutdown,
-	EfiResetPlatformSpecific
-} EFI_RESET_TYPE;
-
 #endif /* EFI_TYPES_H */

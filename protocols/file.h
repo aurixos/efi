@@ -17,6 +17,8 @@
 #define EFI_FILE_ARCHIVE										0x0000000000000020
 #define EFI_FILE_VALID_ATTR										0x0000000000000037
 
+typedef struct _EFI_FILE_PROTOCOL EFI_FILE_PROTOCOL;
+
 typedef struct {
 	EFI_EVENT Event;
 	EFI_STATUS Status;
