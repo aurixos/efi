@@ -4,8 +4,7 @@
 #include "efi_types.h"
 
 #include "efi_bs.h"
-#include "protocols/simple_text_input.h"
-#include "protocols/simple_text_output.h"
+#include "protocols/console_support.h"
 #include "efi_rs.h"
 
 #define EFI_SYSTEM_TABLE_SIGNATURE								0x5453595320494249

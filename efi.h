@@ -18,12 +18,11 @@ typedef struct {
 #include "efi_bs.h"
 
 #include "protocols/boot_manager_policy.h"
+#include "protocols/console_support.h"
 #include "protocols/device_path.h"
 #include "protocols/file.h"
 #include "protocols/loaded_image.h"
 #include "protocols/simple_file_system.h"
-#include "protocols/simple_text_input.h"
-#include "protocols/simple_text_output.h"
 #include "protocols/uefi_driver_model.h"
 
 #define EFI_ERROR(Status)								(((INTN)(EFI_STATUS)(Status)) < 0)
