@@ -27,6 +27,9 @@ typedef void VOID;
 typedef long INTPTR;
 typedef unsigned long UINTPTR;
 
+typedef long SSIZE;
+typedef unsigned long SIZE;
+
 typedef UINTN EFI_STATUS;
 typedef VOID *EFI_HANDLE;
 typedef VOID *EFI_EVENT;
