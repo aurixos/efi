@@ -24,6 +24,9 @@ typedef char CHAR8;
 typedef char16_t CHAR16;
 typedef void VOID;
 
+typedef long INTPTR;
+typedef unsigned long UINTPTR;
+
 typedef UINTN EFI_STATUS;
 typedef VOID *EFI_HANDLE;
 typedef VOID *EFI_EVENT;

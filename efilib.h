@@ -1,0 +1,9 @@
+#ifndef EFI_EFILIB_H
+#define EFI_EFILIB_H
+
+#include "efi.h"
+
+#define EFI_ERROR(status) (((INTN)(status)) < 0)
+
+#endif /* EFI_EFILIB_H */
+
