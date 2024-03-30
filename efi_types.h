@@ -188,4 +188,72 @@ typedef struct {
 #define ARROW_UP 0x2191
 #define ARROW_DOWN 0x2193
 
+// EFI_GUID
+typedef struct {
+	UINT32 Data1;
+	UINT16 Data2;
+	UINT16 Data3;
+	UINT8 Data4[8];
+} EFI_GUID;
+
+// MBR Partition Entry
+#if defined(_MSC_VER)
+#pragma pack(1)
+#endif
+
+typedef struct {
+	UINT8 BootIndicator;
+	UINT8 StartHead;
+	UINT8 StartSector;
+	UINT8 StartTrack;
+	UINT8 OSIndicator;
+	UINT8 EndHead;
+	UINT8 EndSector;
+	UINT8 EndTrack;
+	UINT8 StartingLBA[4];
+	UINT8 SizeInLBA[4];
+#if defined(_MSC_VER)
+} MBR_PARTITION_RECORD;
+#pragma pack()
+#else
+} __attribute__((packed)) MBR_PARTITION_RECORD;
+#endif
+
+// Master Boot Record
+#if defined(_MSC_VER)
+#pragma pack(1)
+#endif
+
+typedef struct {
+	UINT8 BootStrapCode[440];
+	UINT8 UniqueMbrSignature[4];
+	UINT8 Unknown[2];
+	MBR_PARTITION_RECORD Partition[4];
+	UINT16 Signature;
+#if defined(_MSC_VER)
+} MASTER_BOOT_RECORD;
+#pragma pack()
+#else
+} __attribute__((packed)) MASTER_BOOT_RECORD;
+#endif
+
+// GPT Partition Entry
+#if defined(_MSC_VER)
+#pragma pack(1)
+#endif
+
+typedef struct {
+	EFI_GUID PartitionTypeGUID;
+	EFI_GUID UniquePartitionGUID;
+	EFI_LBA StartingLBA;
+	EFI_LBA EndingLBA;
+	UINT64 Attributes;
+	CHAR16 PartitionName[36];
+#if defined(_MSC_VER)
+} EFI_PARTITION_ENTRY;
+#pragma pack()
+#else
+} __attribute__((packed)) EFI_PARTITION_ENTRY;
+#endif
+
 #endif /* EFI_TYPES_H */

@@ -110,13 +110,6 @@ typedef struct {
 } EFI_MEMORY_DESCRIPTOR;
 
 typedef struct {
-	UINT32 Data1;
-	UINT16 Data2;
-	UINT16 Data3;
-	UINT8 Data4[8];
-} EFI_GUID;
-
-typedef struct {
 	EFI_HANDLE AgentHandle;
 	EFI_HANDLE ControllerHandle;
 	UINT32 Attributes;
