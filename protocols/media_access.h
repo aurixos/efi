@@ -1041,11 +1041,10 @@ typedef struct _EFI_RAM_DISK_PROTOCOL {
 #define PARTITION_TYPE_MBR 0x01
 #define PARTITION_TYPE_GPT 0x02
 
-#if defined(_MSC_VER)
-#pragma pack(1)
-#endif
+typedef struct _EFI_PARTITION_INFO_PROTOCOL EFI_PARTITION_INFO_PROTOCOL;
 
-typedef struct {
+#pragma pack(1)
+typedef struct _EFI_PARTITION_INFO_PROTOCOL {
 	UINT32 Revision;
 	UINT32 Type;
 	UINT8 System;
@@ -1054,12 +1053,8 @@ typedef struct {
 		MBR_PARTITION_RECORD Mbr;
 		EFI_PARTITION_ENTRY Gpt;
 	} Info;
-#if defined(_MSC_VER)
 } EFI_PARTITION_INFO_PROTOCOL;
 #pragma pack()
-#else
-} __attribute__((packed)) EFI_PARTITION_INFO_PROTOCOL;
-#endif
 
 ////
 // NVDIMM Label Protocol
