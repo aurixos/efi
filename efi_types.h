@@ -55,6 +55,9 @@ typedef UINT16 EFI_STRING_ID;
 // HII Handle
 typedef VOID *EFI_HII_HANDLE;
 
+// LBA
+typedef UINT64 EFI_LBA;
+
 // EFI Mac Address
 typedef struct {
 	UINT8 Addr[32];
