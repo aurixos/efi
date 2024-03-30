@@ -339,7 +339,8 @@ EFI_STATUS
 	IN UINTN Microseconds
 );
 
-typedef EFI_STATUS
+typedef
+EFI_STATUS
 (EFIAPI *EFI_SET_WATCHDOG_TIMER)(
 	IN UINTN Timeout,
 	IN UINT64 WatchDogCode,
@@ -393,7 +394,8 @@ EFI_STATUS
 	IN EFI_HANDLE ControllerHandle
 );
 
-typedef EFI_STATUS
+typedef
+EFI_STATUS
 (EFIAPI *EFI_PROTOCOLS_PER_HANDLE)(
 	IN EFI_HANDLE Handle,
 	OUT EFI_GUID ***ProtocolBuffer,
@@ -456,7 +458,8 @@ VOID
 	IN UINT8 Value
 );
 
-typedef EFI_STATUS
+typedef
+EFI_STATUS
 (EFIAPI *EFI_CREATE_EVENT_EX)(
 	IN UINT32 Type,
 	IN EFI_TPL NotifyTpl,
