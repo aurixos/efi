@@ -22,8 +22,7 @@ typedef struct {
 #include "protocols/device_path.h"
 #include "protocols/loaded_image.h"
 #include "protocols/media_access.h"
+#include "protocols/pci_bus.h"
 #include "protocols/uefi_driver_model.h"
-
-#define EFI_ERROR(Status)								(((INTN)(EFI_STATUS)(Status)) < 0)
 
 #endif /* EFI_H */
