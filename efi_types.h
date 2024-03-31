@@ -24,6 +24,11 @@ typedef char CHAR8;
 typedef char16_t CHAR16;
 typedef void VOID;
 
+typedef struct {
+	UINT64 Uint64;
+	UINT64 Uint64_1;
+} UINT128;
+
 typedef long INTPTR;
 typedef unsigned long UINTPTR;
 

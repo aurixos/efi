@@ -120,4 +120,10 @@ typedef struct _EFI_SYSTEM_TABLE {
 	EFI_CONFIGURATION_TABLE *ConfigurationTable;
 } EFI_SYSTEM_TABLE;
 
+typedef struct _EFI_SYSTEM_TABLE_POINTER {
+	UINT64 Signature;
+	EFI_PHYSICAL_ADDRESS EfiSystemTableBase;
+	UINT32 Crc32;
+} EFI_SYSTEM_TABLE_POINTER;
+
 #endif /* EFI_SYSTEM_TABLE_H */
