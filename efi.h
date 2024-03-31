@@ -21,6 +21,7 @@ typedef struct {
 #include "protocols/boot_manager_policy.h"
 #include "protocols/console_support.h"
 #include "protocols/debugger.h"
+#include "protocols/decompress.h"
 #include "protocols/device_path.h"
 #include "protocols/loaded_image.h"
 #include "protocols/media_access.h"
