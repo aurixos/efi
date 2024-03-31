@@ -17,6 +17,7 @@ typedef struct {
 #include "efi_rs.h"
 #include "efi_bs.h"
 
+#include "protocols/acpi.h"
 #include "protocols/boot_manager_policy.h"
 #include "protocols/console_support.h"
 #include "protocols/device_path.h"
