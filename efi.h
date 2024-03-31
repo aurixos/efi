@@ -27,5 +27,6 @@ typedef struct {
 #include "protocols/scsi.h"
 #include "protocols/string_services.h"
 #include "protocols/uefi_driver_model.h"
+#include "protocols/usb.h"
 
 #endif /* EFI_H */
