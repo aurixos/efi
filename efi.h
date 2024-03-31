@@ -23,6 +23,7 @@ typedef struct {
 #include "protocols/debugger.h"
 #include "protocols/decompress.h"
 #include "protocols/device_path.h"
+#include "protocols/fwmgmnt.h"
 #include "protocols/loaded_image.h"
 #include "protocols/media_access.h"
 #include "protocols/pci_bus.h"
