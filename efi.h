@@ -24,6 +24,7 @@ typedef struct {
 #include "protocols/loaded_image.h"
 #include "protocols/media_access.h"
 #include "protocols/pci_bus.h"
+#include "protocols/scsi.h"
 #include "protocols/string_services.h"
 #include "protocols/uefi_driver_model.h"
 
