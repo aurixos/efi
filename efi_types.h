@@ -24,6 +24,9 @@ typedef char CHAR8;
 typedef char16_t CHAR16;
 typedef void VOID;
 
+#define TRUE 1
+#define FALSE 0
+
 typedef struct {
 	UINT64 Uint64;
 	UINT64 Uint64_1;
