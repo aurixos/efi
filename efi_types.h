@@ -24,6 +24,9 @@ typedef char CHAR8;
 typedef char16_t CHAR16;
 typedef void VOID;
 
+typedef BOOLEAN BOOL;
+typedef INT32 INT;
+
 #define TRUE 1
 #define FALSE 0
 
