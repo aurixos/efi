@@ -1,109 +1,29 @@
-#ifndef EFI_TYPES_H
-#define EFI_TYPES_H
+#ifndef _SEL_EFITYPES_H
+#define _SEL_EFITYPES_H
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
+// ************************************ //
+// Status codes                         //
+// ************************************ //
 
-// Wide character
-typedef uint_least16_t char16_t;
-
-// Common UEFI Data types
-typedef uint8_t BOOLEAN;
-typedef int8_t INT8;
-typedef uint8_t UINT8;
-typedef int16_t INT16;
-typedef uint16_t UINT16;
-typedef int32_t INT32;
-typedef uint32_t UINT32;
-typedef int64_t INT64;
-typedef uint64_t UINT64;
-typedef int64_t INTN;
-typedef uint64_t UINTN;
-typedef char CHAR8;
-typedef char16_t CHAR16;
-typedef void VOID;
-
-typedef BOOLEAN BOOL;
-typedef INT32 INT;
-
-#define TRUE 1
-#define FALSE 0
-
-typedef struct {
-	UINT64 Uint64;
-	UINT64 Uint64_1;
-} UINT128;
-
-typedef long INTPTR;
-typedef unsigned long UINTPTR;
-
-typedef long SSIZE;
-typedef unsigned long SIZE;
-
-typedef __builtin_va_list VA_LIST;
-#define va_start(ap, arg) __builtin_va_start(ap, arg)
-#define va_arg(ap, type) __builtin_va_arg(ap, type)
-#define va_end(ap) __builtin_va_end(ap)
-
-typedef UINTN EFI_STATUS;
-typedef VOID *EFI_HANDLE;
-typedef VOID *EFI_EVENT;
-typedef UINT64 EFI_LBA;
-typedef UINTN EFI_TPL;
-
-// https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Base.h
-#define IN
-#define OUT
-#define OPTIONAL
-#define CONST const
-
-// x86_64 Microsoft calling convention
-// https://github.com/vathpela/gnu-efi/blob/master/inc/x86_64/efibind.h
-#define EFIAPI __attribute__((ms_abi))
-
-// EFI Physical Address
-typedef UINT64 EFI_PHYSICAL_ADDRESS;
-
-// EFI Virtual Address
-typedef UINT64 EFI_VIRTUAL_ADDRESS;
-
-// Task Priority Level
-typedef UINTN EFI_TPL;
-
-// String ID
-typedef UINT16 EFI_STRING_ID;
-
-// HII Handle
-typedef VOID *EFI_HII_HANDLE;
-
-// LBA
-typedef UINT64 EFI_LBA;
-
-// EFI IPv4 Address
-typedef struct {
-	UINT8 Addr[4];
-} EFI_IPv4_ADDRESS;
-
-// EFI IPv6 Address
-typedef struct {
-	UINT8 Addr[16];
-} EFI_IPv6_ADDRESS;
-
-// EFI IP Address
-typedef union {
-	UINT32 Addr[4];
-	EFI_IPv4_ADDRESS v4;
-	EFI_IPv6_ADDRESS v6;
-} EFI_IP_ADDRESS;
-
-// EFI Mac Address
-typedef struct {
-	UINT8 Addr[32];
-} EFI_MAC_ADDRESS;
-
-// EFI Status Codes
+//
+// Success Codes
+//
 #define EFI_SUCCESS													(0x00)
+
+//
+// Warning Codes
+//
+#define EFI_WARN_UNKNOWN_GLYPH										(0x01)
+#define EFI_WARN_DELETE_FAILURE										(0x02)
+#define EFI_WARN_WRITE_FAILURE										(0x03)
+#define EFI_WARN_BUFFER_TOO_SMALL									(0x04)
+#define EFI_WARN_STALE_DATA											(0x05)
+#define EFI_WARN_FILE_SYSTEM										(0x06)
+#define EFI_WARN_RESET_REQUIRED										(0x07)
+
+//
+// Error Codes
+//
 #define EFI_LOAD_ERROR												(0x8000000000000001)
 #define EFI_INVALID_PARAMETER										(0x8000000000000002)
 #define EFI_UNSUPPORTED												(0x8000000000000003)
@@ -138,96 +58,70 @@ typedef struct {
 #define EFI_IP_ADDRESS_CONFLICT										(0x8000000000000022)
 #define EFI_HTTP_ERROR												(0x8000000000000023)
 
-// Text color attributes
-#define EFI_BLACK										0x00
-#define EFI_BLUE										0x01
-#define EFI_GREEN										0x02
-#define EFI_CYAN										0x03
-#define EFI_RED											0x04
-#define EFI_MAGENTA										0x05
-#define EFI_BROWN										0x06
-#define EFI_LIGHTGRAY									0x07
-#define EFI_BRIGHT										0x08
-#define EFI_DARKGRAY									(EFI_BLACK | EFI_BRIGHT) 0x08
-#define EFI_LIGHTBLUE									0x09
-#define EFI_LIGHTGREEN									0x0A
-#define EFI_LIGHTCYAN									0x0B
-#define EFI_LIGHTRED									0x0C
-#define EFI_LIGHTMAGENTA								0x0D
-#define EFI_YELLOW										0x0E
-#define EFI_WHITE										0x0F
+// ************************************ //
+// Function modifiers                   //
+// ************************************ //
 
-// Text background colors
-#define EFI_BACKGROUND_BLACK 0x00
-#define EFI_BACKGROUND_BLUE 0x10
-#define EFI_BACKGROUND_GREEN 0x20
-#define EFI_BACKGROUND_CYAN 0x30
-#define EFI_BACKGROUND_RED 0x40
-#define EFI_BACKGROUND_MAGENTA 0x50
-#define EFI_BACKGROUND_BROWN 0x60
-#define EFI_BACKGROUND_LIGHTGRAY 0x70
+#define IN
+#define OUT
+#define OPTIONAL
+#define CONST const
+#define STATIC static
 
-// Converts Foreground and Background colors into a single value
-#define EFI_TEXT_ATTR(Foreground,Background) \
-	((Foreground) | ((Background) << 4))
+// ************************************ //
+// Common data types                    //
+// ************************************ //
 
-// Box Drawings
-#define BOXDRAW_HORIZONTAL 0x2500
-#define BOXDRAW_VERTICAL 0x2502
-#define BOXDRAW_DOWN_RIGHT 0x250c
-#define BOXDRAW_DOWN_LEFT 0x2510
-#define BOXDRAW_UP_RIGHT 0x2514
-#define BOXDRAW_UP_LEFT 0x2518
-#define BOXDRAW_VERTICAL_RIGHT 0x251c
-#define BOXDRAW_VERTICAL_LEFT 0x2524
-#define BOXDRAW_DOWN_HORIZONTAL 0x252c
-#define BOXDRAW_UP_HORIZONTAL 0x2534
-#define BOXDRAW_VERTICAL_HORIZONTAL 0x253c
-#define BOXDRAW_DOUBLE_HORIZONTAL 0x2550
-#define BOXDRAW_DOUBLE_VERTICAL 0x2551
-#define BOXDRAW_DOWN_RIGHT_DOUBLE 0x2552
-#define BOXDRAW_DOWN_DOUBLE_RIGHT 0x2553
-#define BOXDRAW_DOUBLE_DOWN_RIGHT 0x2554
-#define BOXDRAW_DOWN_LEFT_DOUBLE 0x2555
-#define BOXDRAW_DOWN_DOUBLE_LEFT 0x2556
-#define BOXDRAW_DOUBLE_DOWN_LEFT 0x2557
-#define BOXDRAW_UP_RIGHT_DOUBLE 0x2558
-#define BOXDRAW_UP_DOUBLE_RIGHT 0x2559
-#define BOXDRAW_DOUBLE_UP_RIGHT 0x255a
-#define BOXDRAW_UP_LEFT_DOUBLE 0x255b
-#define BOXDRAW_UP_DOUBLE_LEFT 0x255c
-#define BOXDRAW_DOUBLE_UP_LEFT 0x255d
-#define BOXDRAW_VERTICAL_RIGHT_DOUBLE 0x255e
-#define BOXDRAW_VERTICAL_DOUBLE_RIGHT 0x255f
-#define BOXDRAW_DOUBLE_VERTICAL_RIGHT 0x2560
-#define BOXDRAW_VERTICAL_LEFT_DOUBLE 0x2561
-#define BOXDRAW_VERTICAL_DOUBLE_LEFT 0x2562
-#define BOXDRAW_DOUBLE_VERTICAL_LEFT 0x2563
-#define BOXDRAW_DOWN_HORIZONTAL_DOUBLE 0x2564
-#define BOXDRAW_DOWN_DOUBLE_HORIZONTAL 0x2565
-#define BOXDRAW_DOUBLE_DOWN_HORIZONTAL 0x2566
-#define BOXDRAW_UP_HORIZONTAL_DOUBLE 0x2567
-#define BOXDRAW_UP_DOUBLE_HORIZONTAL 0x2568
-#define BOXDRAW_DOUBLE_UP_HORIZONTAL 0x2569
-#define BOXDRAW_VERTICAL_HORIZONTAL_DOUBLE 0x256a
-#define BOXDRAW_VERTICAL_DOUBLE_HORIZONTAL 0x256b
-#define BOXDRAW_DOUBLE_VERTICAL_HORIZONTAL 0x256c
+//
+// Include architecture-specific type definitions
+//
+#if EFI_ARCH_AARCH64 == 1
+# include "arch/aarch64/types.h"
+#elif EFI_ARCH_X86_64 == 1
+# include "arch/x86_64/types.h"
+#else
+# error "No valid architecture specified!"
+#endif
 
-// Block elements
-#define BLOCKELEMENT_FULL_BLOCK 0x2588
-#define BLOCKELEMENT_LIGHT_SHADE 0x2591
+//
+// BOOLEAN values
+//
+#define FALSE 0
+#define TRUE 1
 
-// Geometric Shapes
-#define GEOMETRICSHAPE_UP_TRIANGLE 0x25b2
-#define GEOMETRICSHAPE_RIGHT_TRIANGLE 0x25ba
-#define GEOMETRICSHAPE_DOWN_TRIANGLE 0x25bc
-#define GEOMETRICSHAPE_LEFT_TRIANGLE 0x25c4
+//
+// BOOL type
+//
+typedef BOOLEAN BOOL;
 
-// Arrows
-#define ARROW_UP 0x2191
-#define ARROW_DOWN 0x2193
+//
+// Status Code
+//
+typedef UINTN EFI_STATUS;
 
-// EFI_GUID
+//
+// Status Code
+//
+typedef VOID *EFI_HANDLE;
+
+//
+// Status Code
+//
+typedef VOID *EFI_EVENT;
+
+//
+// Logical Block Address
+//
+typedef UINT64 EFI_LBA;
+
+//
+// Task Priority Level
+//
+typedef UINTN EFI_TPL;
+
+//
+// GUID
+//
 typedef struct {
 	UINT32 Data1;
 	UINT16 Data2;
@@ -235,43 +129,34 @@ typedef struct {
 	UINT8 Data4[8];
 } EFI_GUID;
 
-// MBR Partition Entry
-#pragma pack(1)
+//
+// MAC Address
+//
 typedef struct {
-	UINT8 BootIndicator;
-	UINT8 StartHead;
-	UINT8 StartSector;
-	UINT8 StartTrack;
-	UINT8 OSIndicator;
-	UINT8 EndHead;
-	UINT8 EndSector;
-	UINT8 EndTrack;
-	UINT8 StartingLBA[4];
-	UINT8 SizeInLBA[4];
-} MBR_PARTITION_RECORD;
-#pragma pack()
+	UINT8 Addr[32];
+} EFI_MAC_ADDRESS;
 
-// Master Boot Record
-#pragma pack(1)
+//
+// IPv4 Address
+//
 typedef struct {
-	UINT8 BootStrapCode[440];
-	UINT8 UniqueMbrSignature[4];
-	UINT8 Unknown[2];
-	MBR_PARTITION_RECORD Partition[4];
-	UINT16 Signature;
-} MASTER_BOOT_RECORD;
-#pragma pack()
+	UINT8 Addr[4];
+} EFI_IPv4_ADDRESS;
 
-// GPT Partition Entry
-#pragma pack(1)
+//
+// IPv6 Address
+//
 typedef struct {
-	EFI_GUID PartitionTypeGUID;
-	EFI_GUID UniquePartitionGUID;
-	EFI_LBA StartingLBA;
-	EFI_LBA EndingLBA;
-	UINT64 Attributes;
-	CHAR16 PartitionName[36];
-} EFI_PARTITION_ENTRY;
-#pragma pack()
+	UINT8 Addr[16];
+} EFI_IPv6_ADDRESS;
 
-#endif /* EFI_TYPES_H */
+//
+// IP Address
+//
+typedef union {
+	UINT32 Addr[4];
+	EFI_IPv4_ADDRESS v4;
+	EFI_IPv6_ADDRESS v6;
+} EFI_IP_ADDRESS;
+
+#endif /* _SEL_EFITYPES_H */
