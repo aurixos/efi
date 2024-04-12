@@ -1,5 +1,8 @@
 # Simple EFI Library (SEL)
 
+> [!NOTE]
+> Although this library is fairly complete for most programmers' needs, a rewrite is currently taking place to in the `rewrite` branch. Definitions and names will stay the same, though.
+
 ## Usage
 
 Simply put `#include "efi.h"` into your source code and you're good to go.
