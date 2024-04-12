@@ -26,6 +26,7 @@ typedef struct {
 #include "protocols/fwmgmnt.h"
 #include "protocols/loaded_image.h"
 #include "protocols/media_access.h"
+#include "protocols/network.h"
 #include "protocols/pci_bus.h"
 #include "protocols/scsi.h"
 #include "protocols/string_services.h"

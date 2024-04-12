@@ -80,6 +80,23 @@ typedef VOID *EFI_HII_HANDLE;
 // LBA
 typedef UINT64 EFI_LBA;
 
+// EFI IPv4 Address
+typedef struct {
+	UINT8 Addr[4];
+} EFI_IPv4_ADDRESS;
+
+// EFI IPv6 Address
+typedef struct {
+	UINT8 Addr[16];
+} EFI_IPv6_ADDRESS;
+
+// EFI IP Address
+typedef union {
+	UINT32 Addr[4];
+	EFI_IPv4_ADDRESS v4;
+	EFI_IPv6_ADDRESS v6;
+} EFI_IP_ADDRESS;
+
 // EFI Mac Address
 typedef struct {
 	UINT8 Addr[32];
