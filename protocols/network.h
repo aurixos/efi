@@ -34,54 +34,54 @@ typedef enum {
 } EFI_SIMPLE_NETWORK_STATE;
 
 typedef struct {
-	UINT32 State;
-	UINT32 HwAddressSize;
-	UINT32 MediaHeaderSize;
-	UINT32 MaxPacketSize;
-	UINT32 NvRamSize;
-	UINT32 NvRamAccessSize;
-	UINT32 ReceiveFilterMask;
-	UINT32 ReceiveFilterSetting;
-	UINT32 MaxMCastFilterCount;
-	UINT32 MCastFilterCount;
+	EFI_UINT32 State;
+	EFI_UINT32 HwAddressSize;
+	EFI_UINT32 MediaHeaderSize;
+	EFI_UINT32 MaxPacketSize;
+	EFI_UINT32 NvRamSize;
+	EFI_UINT32 NvRamAccessSize;
+	EFI_UINT32 ReceiveFilterMask;
+	EFI_UINT32 ReceiveFilterSetting;
+	EFI_UINT32 MaxMCastFilterCount;
+	EFI_UINT32 MCastFilterCount;
 	EFI_MAC_ADDRESS MCastFilter[MAX_MCAST_FILTER_CNT];
 	EFI_MAC_ADDRESS CurrentAddress;
 	EFI_MAC_ADDRESS BroadcastAddress;
 	EFI_MAC_ADDRESS PermanentAddress;
-	UINT8 IfType;
-	BOOLEAN MacAddressChangeable;
-	BOOLEAN MultipleTxSupported;
-	BOOLEAN MediaPresentSupported;
-	BOOLEAN MediaPresent;
+	EFI_UINT8 IfType;
+	EFI_BOOLEAN MacAddressChangeable;
+	EFI_BOOLEAN MultipleTxSupported;
+	EFI_BOOLEAN MediaPresentSupported;
+	EFI_BOOLEAN MediaPresent;
 } EFI_SIMPLE_NETWORK_MODE;
 
 typedef struct {
-	UINT64 RxTotalFrames;
-	UINT64 RxGoodFrames;
-	UINT64 RxUndersizeFrames;
-	UINT64 RxOversizeFrames;
-	UINT64 RxDroppedFrames;
-	UINT64 RxUnicastFrames;
-	UINT64 RxBroadcastFrames;
-	UINT64 RxMulticastFrames;
-	UINT64 RxCrcErrorFrames;
-	UINT64 RxTotalBytes;
-	UINT64 TxTotalFrames;
-	UINT64 TxGoodFrames;
-	UINT64 TxUndersizeFrames;
-	UINT64 TxOversizeFrames;
-	UINT64 TxDroppedFrames;
-	UINT64 TxUnicastFrames;
-	UINT64 TxBroadcastFrames;
-	UINT64 TxMulticastFrames;
-	UINT64 TxCrcErrorFrames;
-	UINT64 TxTotalBytes;
-	UINT64 Collisions;
-	UINT64 UnsupportedProtocol;
-	UINT64 RxDuplicatedFrames;
-	UINT64 RxDecryptErrorFrames;
-	UINT64 TxErrorFrames;
-	UINT64 TxRetryFrames;
+	EFI_UINT64 RxTotalFrames;
+	EFI_UINT64 RxGoodFrames;
+	EFI_UINT64 RxUndersizeFrames;
+	EFI_UINT64 RxOversizeFrames;
+	EFI_UINT64 RxDroppedFrames;
+	EFI_UINT64 RxUnicastFrames;
+	EFI_UINT64 RxBroadcastFrames;
+	EFI_UINT64 RxMulticastFrames;
+	EFI_UINT64 RxCrcErrorFrames;
+	EFI_UINT64 RxTotalBytes;
+	EFI_UINT64 TxTotalFrames;
+	EFI_UINT64 TxGoodFrames;
+	EFI_UINT64 TxUndersizeFrames;
+	EFI_UINT64 TxOversizeFrames;
+	EFI_UINT64 TxDroppedFrames;
+	EFI_UINT64 TxUnicastFrames;
+	EFI_UINT64 TxBroadcastFrames;
+	EFI_UINT64 TxMulticastFrames;
+	EFI_UINT64 TxCrcErrorFrames;
+	EFI_UINT64 TxTotalBytes;
+	EFI_UINT64 Collisions;
+	EFI_UINT64 UnsupportedProtocol;
+	EFI_UINT64 RxDuplicatedFrames;
+	EFI_UINT64 RxDecryptErrorFrames;
+	EFI_UINT64 TxErrorFrames;
+	EFI_UINT64 TxRetryFrames;
 } EFI_NETWORK_STATISTICS;
 
 typedef
@@ -100,15 +100,15 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_INITIALIZE)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	IN UINTN ExtraRxBufferSize OPTIONAL,
-	IN UINTN ExtraTxBufferSize OPTIONAL
+	IN EFI_UINTN ExtraRxBufferSize OPTIONAL,
+	IN EFI_UINTN ExtraTxBufferSize OPTIONAL
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_RESET)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef
@@ -121,10 +121,10 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_RECEIVE_FILTERS)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	IN UINT32 Enable,
-	IN UINT32 Disable,
-	IN BOOLEAN ResetMCastFilter,
-	IN UINTN MCastFilterCnt OPTIONAL,
+	IN EFI_UINT32 Enable,
+	IN EFI_UINT32 Disable,
+	IN EFI_BOOLEAN ResetMCastFilter,
+	IN EFI_UINTN MCastFilterCnt OPTIONAL,
 	IN EFI_MAC_ADDRESS MCastFilter OPTIONAL
 );
 
@@ -132,7 +132,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_STATION_ADDRESS)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	IN BOOLEAN Reset,
+	IN EFI_BOOLEAN Reset,
 	IN EFI_MAC_ADDRESS *New OPTIONAL
 );
 
@@ -140,8 +140,8 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_STATISTICS)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	IN BOOLEAN Reset,
-	IN OUT UINTN *StatisticsSize OPTIONAL,
+	IN EFI_BOOLEAN Reset,
+	IN OUT EFI_UINTN *StatisticsSize OPTIONAL,
 	OUT EFI_NETWORK_STATISTICS *StatisticsTable OPTIONAL
 );
 
@@ -149,7 +149,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_MCAST_IP_TO_MAC)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	IN BOOLEAN IPv6,
+	IN EFI_BOOLEAN IPv6,
 	IN EFI_IP_ADDRESS *IP,
 	OUT EFI_MAC_ADDRESS *MAC
 );
@@ -158,9 +158,9 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_NVDATA)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	IN BOOLEAN ReadWrite,
-	IN UINTN Offset,
-	IN UINTN BufferSize,
+	IN EFI_BOOLEAN ReadWrite,
+	IN EFI_UINTN Offset,
+	IN EFI_UINTN BufferSize,
 	IN OUT VOID *Buffer
 );
 
@@ -168,7 +168,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_GET_STATUS)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	OUT UINT32 *InterruptStatus OPTIONAL,
+	OUT EFI_UINT32 *InterruptStatus OPTIONAL,
 	OUT VOID **TxBuf OPTIONAL
 );
 
@@ -176,28 +176,28 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_TRANSMIT)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	IN UINTN HeaderSize,
-	IN UINTN BufferSize,
+	IN EFI_UINTN HeaderSize,
+	IN EFI_UINTN BufferSize,
 	IN VOID *Buffer,
 	IN EFI_MAC_ADDRESS *SrcAddr OPTIONAL,
 	IN EFI_MAC_ADDRESS *DestAddr OPTIONAL,
-	IN UINT16 *Protocol OPTIONAL
+	IN EFI_UINT16 *Protocol OPTIONAL
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_NETWORK_RECEIVE)(
 	IN EFI_SIMPLE_NETWORK_PROTOCOL *This,
-	OUT UINTN *HeaderSize OPTIONAL,
-	IN OUT UINTN *BufferSize,
+	OUT EFI_UINTN *HeaderSize OPTIONAL,
+	IN OUT EFI_UINTN *BufferSize,
 	OUT VOID *Buffer,
 	OUT EFI_MAC_ADDRESS *SrcAddr OPTIONAL,
 	OUT EFI_MAC_ADDRESS *DestAddr OPTIONAL,
-	OUT UINT16 *Protocol OPTIONAL
+	OUT EFI_UINT16 *Protocol OPTIONAL
 );
 
 typedef struct _EFI_SIMPLE_NETWORK_PROTOCOL {
-	UINT64 Revision;
+	EFI_UINT64 Revision;
 	EFI_SIMPLE_NETWORK_START Start;
 	EFI_SIMPLE_NETWORK_STOP Stop;
 	EFI_SIMPLE_NETWORK_INITIALIZE Initialize;
@@ -230,16 +230,16 @@ typedef enum {
 } EFI_NETWORK_INTERFACE_TYPE;
 
 typedef struct _EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL {
-	UINT64 Revision;
-	UINT64 Id;
-	UINT64 ImageAddr;
-	UINT32 ImageSize;
+	EFI_UINT64 Revision;
+	EFI_UINT64 Id;
+	EFI_UINT64 ImageAddr;
+	EFI_UINT32 ImageSize;
 	CHAR8 StringId[4];
-	UINT8 Type;
-	UINT8 MajorVer;
-	UINT8 MinorVer;
-	BOOLEAN Ipv6Supported;
-	UINT16 IfNum;
+	EFI_UINT8 Type;
+	EFI_UINT8 MajorVer;
+	EFI_UINT8 MinorVer;
+	EFI_BOOLEAN Ipv6Supported;
+	EFI_UINT16 IfNum;
 } EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL;
 
 ////
@@ -296,7 +296,7 @@ typedef struct _EFI_NETWORK_INTERFACE_IDENTIFIER_PROTOCOL {
 
 typedef struct _EFI_PXE_BASE_CODE_PROTOCOL EFI_PXE_BASE_CODE_PROTOCOL;
 
-typedef UINT16 EFI_PXE_BASE_CODE_UDP_PORT;
+typedef EFI_UINT16 EFI_PXE_BASE_CODE_UDP_PORT;
 
 typedef enum {
 	EFI_PXE_BASE_CODE_TFTP_FIRST,
@@ -311,61 +311,61 @@ typedef enum {
 } EFI_PXE_BASE_CODE_TFTP_OPCODE;
 
 typedef struct {
-	UINT8 Filters;
-	UINT8 IpCnt;
-	UINT16 Reserved;
+	EFI_UINT8 Filters;
+	EFI_UINT8 IpCnt;
+	EFI_UINT16 Reserved;
 	EFI_IP_ADDRESS IpList[EFI_PXE_BASE_CODE_MAX_IPCNT];
 } EFI_PXE_BASE_CODE_IP_FILTER;
 
 typedef struct {
-	UINT8 BootpOpcode;
-	UINT8 BootpHwType;
-	UINT8 BootpHwAddrLen;
-	UINT8 BootpGateHops;
-	UINT32 BootpIdent;
-	UINT16 BootpSeconds;
-	UINT16 BootpFlags;
-	UINT8 BootpCiAddr[4];
-	UINT8 BootpYiAddr[4];
-	UINT8 BootpSiAddr[4];
-	UINT8 BootpGiAddr[4];
-	UINT8 BootpHwAddr[16];
-	UINT8 BootpSrvName[64];
-	UINT8 BootpBootFile[128];
-	UINT32 DhcpMagik;
-	UINT8 DhcpOptions[56];
+	EFI_UINT8 BootpOpcode;
+	EFI_UINT8 BootpHwType;
+	EFI_UINT8 BootpHwAddrLen;
+	EFI_UINT8 BootpGateHops;
+	EFI_UINT32 BootpIdent;
+	EFI_UINT16 BootpSeconds;
+	EFI_UINT16 BootpFlags;
+	EFI_UINT8 BootpCiAddr[4];
+	EFI_UINT8 BootpYiAddr[4];
+	EFI_UINT8 BootpSiAddr[4];
+	EFI_UINT8 BootpGiAddr[4];
+	EFI_UINT8 BootpHwAddr[16];
+	EFI_UINT8 BootpSrvName[64];
+	EFI_UINT8 BootpBootFile[128];
+	EFI_UINT32 DhcpMagik;
+	EFI_UINT8 DhcpOptions[56];
 } EFI_PXE_BASE_CODE_DHCPV4_PACKET;
 
 typedef struct {
-	UINT32 MessageType : 8;
-	UINT32 TransactionId : 24;
-	UINT8 DhcpOptions[1024];
+	EFI_UINT32 MessageType : 8;
+	EFI_UINT32 TransactionId : 24;
+	EFI_UINT8 DhcpOptions[1024];
 } EFI_PXE_BASE_CODE_DHCPV6_PACKET;
 
 typedef union {
-	UINT8 Raw[1472];
+	EFI_UINT8 Raw[1472];
 	EFI_PXE_BASE_CODE_DHCPV4_PACKET Dhcpv4;
 	EFI_PXE_BASE_CODE_DHCPV6_PACKET Dhcpv6;
 } EFI_PXE_BASE_CODE_PACKET;
 
 typedef struct {
-	UINT8 Type;
-	UINT8 Code;
-	UINT16 Checksum;
+	EFI_UINT8 Type;
+	EFI_UINT8 Code;
+	EFI_UINT16 Checksum;
 	union {
-		UINT32 reserved;
-		UINT32 Mtu;
-		UINT32 Pointer;
+		EFI_UINT32 reserved;
+		EFI_UINT32 Mtu;
+		EFI_UINT32 Pointer;
 		struct {
-			UINT16 Identifier;
-			UINT16 Sequence;
+			EFI_UINT16 Identifier;
+			EFI_UINT16 Sequence;
 		} Echo;
 	} u;
-	UINT8 Data[494];
+	EFI_UINT8 Data[494];
 } EFI_PXE_BASE_CODE_ICMP_ERROR;
 
 typedef struct {
-	UINT8 ErrorCode;
+	EFI_UINT8 ErrorCode;
 	CHAR8 ErrorString[127];
 } EFI_PXE_BASE_CODE_TFTP_ERROR;
 
@@ -381,42 +381,42 @@ typedef struct {
 } EFI_PXE_BASE_CODE_ROUTE_ENTRY;
 
 typedef struct {
-	UINT16 Type;
-	BOOLEAN AcceptAnyResponse;
-	UINT8 reserved;
+	EFI_UINT16 Type;
+	EFI_BOOLEAN AcceptAnyResponse;
+	EFI_UINT8 reserved;
 	EFI_IP_ADDRESS IpAddr;
 } EFI_PXE_BASE_CODE_SRVLIST;
 
 typedef struct {
-	BOOLEAN UseMCast;
-	BOOLEAN UseBCast;
-	BOOLEAN UseUCast;
-	BOOLEAN MustUseList;
+	EFI_BOOLEAN UseMCast;
+	EFI_BOOLEAN UseBCast;
+	EFI_BOOLEAN UseUCast;
+	EFI_BOOLEAN MustUseList;
 	EFI_IP_ADDRESS ServerMCastIp;
-	UINT16 IpCnt;
+	EFI_UINT16 IpCnt;
 	EFI_PXE_BASE_CODE_SRVLIST SrvList[1];
 } EFI_PXE_BASE_CODE_DISCOVER_INFO;
 
 typedef struct {
-	BOOLEAN Started;
-	BOOLEAN Ipv6Available;
-	BOOLEAN Ipv6Supported;
-	BOOLEAN UsingIpv6;
-	BOOLEAN BisSupported;
-	BOOLEAN BisDetected;
-	BOOLEAN AutoArp;
-	BOOLEAN SendGUID;
-	BOOLEAN DhcpDiscoverValid;
-	BOOLEAN DhcpAckReceivd;
-	BOOLEAN ProxyOfferReceived;
-	BOOLEAN PxeDiscoverValid;
-	BOOLEAN PxeReplyReceived;
-	BOOLEAN PxeBisReplyReceived;
-	BOOLEAN IcmpErrorReceived;
-	BOOLEAN TftpErrorReceived;
-	BOOLEAN MakeCallbacks;
-	UINT8 TTL;
-	UINT8 ToS;
+	EFI_BOOLEAN Started;
+	EFI_BOOLEAN Ipv6Available;
+	EFI_BOOLEAN Ipv6Supported;
+	EFI_BOOLEAN UsingIpv6;
+	EFI_BOOLEAN BisSupported;
+	EFI_BOOLEAN BisDetected;
+	EFI_BOOLEAN AutoArp;
+	EFI_BOOLEAN SendGUID;
+	EFI_BOOLEAN DhcpDiscoverValid;
+	EFI_BOOLEAN DhcpAckReceivd;
+	EFI_BOOLEAN ProxyOfferReceived;
+	EFI_BOOLEAN PxeDiscoverValid;
+	EFI_BOOLEAN PxeReplyReceived;
+	EFI_BOOLEAN PxeBisReplyReceived;
+	EFI_BOOLEAN IcmpErrorReceived;
+	EFI_BOOLEAN TftpErrorReceived;
+	EFI_BOOLEAN MakeCallbacks;
+	EFI_UINT8 TTL;
+	EFI_UINT8 ToS;
 	EFI_IP_ADDRESS StationIp;
 	EFI_IP_ADDRESS SubnetMask;
 	EFI_PXE_BASE_CODE_PACKET DhcpDiscover;
@@ -426,9 +426,9 @@ typedef struct {
 	EFI_PXE_BASE_CODE_PACKET PxeReply;
 	EFI_PXE_BASE_CODE_PACKET PxeBisReply;
 	EFI_PXE_BASE_CODE_IP_FILTER IpFilter;
-	UINT32 ArpCacheEntries;
+	EFI_UINT32 ArpCacheEntries;
 	EFI_PXE_BASE_CODE_ARP_ENTRY ArpCache[EFI_PXE_BASE_CODE_MAX_ARP_ENTRIES];
-	UINT32 RouteTableEntries;
+	EFI_UINT32 RouteTableEntries;
 	EFI_PXE_BASE_CODE_ROUTE_ENTRY RouteTable[EFI_PXE_BASE_CODE_MAX_ROUTE_ENTRIES];
 	EFI_PXE_BASE_CODE_ICMP_ERROR IcmpError;
 	EFI_PXE_BASE_CODE_TFTP_ERROR TftpError;
@@ -438,15 +438,15 @@ typedef struct {
 	EFI_IP_ADDRESS MCastIp;
 	EFI_PXE_BASE_CODE_UDP_PORT CPort;
 	EFI_PXE_BASE_CODE_UDP_PORT SPort;
-	UINT16 ListenTimeout;
-	UINT16 TransmitTimeout;
+	EFI_UINT16 ListenTimeout;
+	EFI_UINT16 TransmitTimeout;
 } EFI_PXE_BASE_CODE_MTFTP_INFO;
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_PXE_BASE_CODE_START)(
 	IN EFI_PXE_BASE_CODE_PROTOCOL *This,
-	IN BOOLEAN UseIpv6
+	IN EFI_BOOLEAN UseIpv6
 );
 
 typedef
@@ -459,16 +459,16 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_PXE_BASE_CODE_DHCP) (
 	IN EFI_PXE_BASE_CODE_PROTOCOL *This,
-	IN BOOLEAN SortOffers
+	IN EFI_BOOLEAN SortOffers
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_PXE_BASE_CODE_DISCOVER)(
 	IN EFI_PXE_BASE_CODE_PROTOCOL *This,
-	IN UINT16 Type,
-	IN UINT16 *Layer,
-	IN BOOLEAN UseBis,
+	IN EFI_UINT16 Type,
+	IN EFI_UINT16 *Layer,
+	IN EFI_BOOLEAN UseBis,
 	IN EFI_PXE_BASE_CODE_DISCOVER_INFO *Info OPTIONAL
 );
 
@@ -478,28 +478,28 @@ EFI_STATUS
 	IN EFI_PXE_BASE_CODE_PROTOCOL *This,
 	IN EFI_PXE_BASE_CODE_TFTP_OPCODE Operation,
 	IN OUT VOID *BufferPtr OPTIONAL,
-	IN BOOLEAN Overwrite,
-	IN OUT UINT64 *BufferSize,
-	IN UINTN *BlockSize OPTIONAL,
+	IN EFI_BOOLEAN Overwrite,
+	IN OUT EFI_UINT64 *BufferSize,
+	IN EFI_UINTN *BlockSize OPTIONAL,
 	IN EFI_IP_ADDRESS *ServerIp,
 	IN CHAR8 *Filename OPTIONAL,
 	IN EFI_PXE_BASE_CODE_MTFTP_INFO *Info OPTIONAL,
-	IN BOOLEAN DontUseBuffer
+	IN EFI_BOOLEAN DontUseBuffer
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_PXE_BASE_CODE_UDP_WRITE)(
 	IN EFI_PXE_BASE_CODE_PROTOCOL *This,
-	IN UINT16 OpFlags,
+	IN EFI_UINT16 OpFlags,
 	IN EFI_IP_ADDRESS *DestIp,
 	IN EFI_PXE_BASE_CODE_UDP_PORT *DestPort,
 	IN EFI_IP_ADDRESS *GatewayIp OPTIONAL,
 	IN EFI_IP_ADDRESS *SrcIp OPTIONAL,
 	IN OUT EFI_PXE_BASE_CODE_UDP_PORT *SrcPort OPTIONAL,
-	IN UINTN *HeaderSize OPTIONAL,
+	IN EFI_UINTN *HeaderSize OPTIONAL,
 	IN VOID *HeaderPtr OPTIONAL,
-	IN UINTN *BufferSize,
+	IN EFI_UINTN *BufferSize,
 	IN VOID *BufferPtr
 );
 
@@ -507,14 +507,14 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_PXE_BASE_CODE_UDP_READ)(
 	IN EFI_PXE_BASE_CODE_PROTOCOL *This,
-	IN UINT16 OpFlags,
+	IN EFI_UINT16 OpFlags,
 	IN OUT EFI_IP_ADDRESS *DestIp OPTIONAL,
 	IN OUT EFI_PXE_BASE_CODE_UDP_PORT *DestPort OPTIONAL,
 	IN OUT EFI_IP_ADDRESS *SrcIp OPTIONAL,
 	IN OUT EFI_PXE_BASE_CODE_UDP_PORT *SrcPort OPTIONAL,
-	IN UINTN *HeaderSize OPTIONAL,
+	IN EFI_UINTN *HeaderSize OPTIONAL,
 	IN VOID *HeaderPtr OPTIONAL,
-	IN OUT UINTN *BufferSize,
+	IN OUT EFI_UINTN *BufferSize,
 	IN VOID *BufferPtr
 );
 
@@ -537,11 +537,11 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_PXE_BASE_CODE_SET_PARAMETERS)(
 	IN EFI_PXE_BASE_CODE_PROTOCOL *This,
-	IN BOOLEAN *NewAutoArp OPTIONAL,
-	IN BOOLEAN *NewSendGUID OPTIONAL,
-	IN UINT8 *NewTTL OPTIONAL,
-	IN UINT8 *NewToS OPTIONAL,
-	IN BOOLEAN *NewMakeCallback OPTIONAL
+	IN EFI_BOOLEAN *NewAutoArp OPTIONAL,
+	IN EFI_BOOLEAN *NewSendGUID OPTIONAL,
+	IN EFI_UINT8 *NewTTL OPTIONAL,
+	IN EFI_UINT8 *NewToS OPTIONAL,
+	IN EFI_BOOLEAN *NewMakeCallback OPTIONAL
 );
 
 typedef
@@ -556,12 +556,12 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_PXE_BASE_CODE_SET_PACKETS)(
 	IN EFI_PXE_BASE_CODE_PROTOCOL *This,
-	IN BOOLEAN *NewDhcpDiscoverValid, OPTIONAL
-	IN BOOLEAN *NewDhcpAckReceived, OPTIONAL
-	IN BOOLEAN *NewProxyOfferReceived, OPTIONAL
-	IN BOOLEAN *NewPxeDiscoverValid, OPTIONAL
-	IN BOOLEAN *NewPxeReplyReceived, OPTIONAL
-	IN BOOLEAN *NewPxeBisReplyReceived, OPTIONAL
+	IN EFI_BOOLEAN *NewDhcpDiscoverValid, OPTIONAL
+	IN EFI_BOOLEAN *NewDhcpAckReceived, OPTIONAL
+	IN EFI_BOOLEAN *NewProxyOfferReceived, OPTIONAL
+	IN EFI_BOOLEAN *NewPxeDiscoverValid, OPTIONAL
+	IN EFI_BOOLEAN *NewPxeReplyReceived, OPTIONAL
+	IN EFI_BOOLEAN *NewPxeBisReplyReceived, OPTIONAL
 	IN EFI_PXE_BASE_CODE_PACKET *NewDhcpDiscover, OPTIONAL
 	IN EFI_PXE_BASE_CODE_PACKET *NewDhcpAck, OPTIONAL
 	IN EFI_PXE_BASE_CODE_PACKET *NewProxyOffer, OPTIONAL
@@ -571,7 +571,7 @@ EFI_STATUS
 );
 
 typedef struct _EFI_PXE_BASE_CODE_PROTOCOL {
-	UINT64 Revision;
+	EFI_UINT64 Revision;
 	EFI_PXE_BASE_CODE_START Start;
 	EFI_PXE_BASE_CODE_STOP Stop;
 	EFI_PXE_BASE_CODE_DHCP Dhcp;
@@ -611,23 +611,23 @@ typedef struct _EFI_PXE_BASE_CODE_PROTOCOL {
 typedef struct _EFI_BIS_PROTOCOL EFI_BIS_PROTOCOL;
 
 typedef VOID *BIS_APPLICATION_HANDLE;
-typedef UINT32 BIS_CERT_ID;
-typedef UINT16 BIS_ALG_ID;
+typedef EFI_UINT32 BIS_CERT_ID;
+typedef EFI_UINT16 BIS_ALG_ID;
 
 typedef struct {
-	UINT32 Major;
-	UINT32 Minor;
+	EFI_UINT32 Major;
+	EFI_UINT32 Minor;
 } EFI_BIS_VERSION;
 
 typedef struct {
-	UINT32 Length;
-	UINT8 *Data;
+	EFI_UINT32 Length;
+	EFI_UINT8 *Data;
 } EFI_BIS_DATA;
 
 typedef struct {
 	BIS_CERT_ID CertificateID;
 	BIS_ALG_ID AlgorithmID;
-	UINT16 KeyLength;
+	EFI_UINT16 KeyLength;
 } EFI_BIS_SIGNATURE_INFO;
 
 typedef
@@ -663,7 +663,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BIS_GET_BOOT_OBJECT_AUTHORIZATION_CHECKFLAG)(
 	IN BIS_APPLICATION_HANDLE AppHandle,
-	OUT BOOLEAN *CheckIsRequired
+	OUT EFI_BOOLEAN *CheckIsRequired
 );
 
 typedef
@@ -694,7 +694,7 @@ EFI_STATUS
 	IN BIS_APPLICATION_HANDLE AppHandle,
 	IN EFI_BIS_DATA *Credentials,
 	IN EFI_BIS_DATA *DataObject,
-	OUT BOOLEAN *IsVerified
+	OUT EFI_BOOLEAN *IsVerified
 );
 
 typedef
@@ -705,7 +705,7 @@ EFI_STATUS
 	IN EFI_BIS_DATA *DataObject,
 	IN EFI_BIS_DATA *SectionName,
 	IN EFI_BIS_DATA *AuthorityCertificate,
-	OUT BOOLEAN *IsVerified
+	OUT EFI_BOOLEAN *IsVerified
 );
 
 typedef struct _EFI_BIS_PROTOCOL {
@@ -743,8 +743,8 @@ EFI_STATUS
 (EFIAPI *EFI_HTTP_BOOT_CALLBACK)(
 	IN EFI_HTTP_BOOT_CALLBACK_PROTOCOL *This,
 	IN EFI_HTTP_BOOT_CALLBACK_DATA_TYPE DataType,
-	IN BOOLEAN Received,
-	IN UINT32 DataLength,
+	IN EFI_BOOLEAN Received,
+	IN EFI_UINT32 DataLength,
 	IN VOID *Data OPTIONAL
 );
 

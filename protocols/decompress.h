@@ -14,9 +14,9 @@ EFI_STATUS
 (EFIAPI *EFI_DECOMPRESS_GET_INFO)(
 	IN EFI_DECOMPRESS_PROTOCOL *This,
 	IN VOID *Source,
-	IN UINT32 SourceSize,
-	OUT UINT32 *DestinationSize,
-	OUT UINT32 *ScratchSize
+	IN EFI_UINT32 SourceSize,
+	OUT EFI_UINT32 *DestinationSize,
+	OUT EFI_UINT32 *ScratchSize
 );
 
 typedef
@@ -24,11 +24,11 @@ EFI_STATUS
 (EFIAPI *EFI_DECOMPRESS_DECOMPRESS)(
 	IN EFI_DECOMPRESS_PROTOCOL *This,
 	IN VOID *Source,
-	IN UINT32 SourceSize,
+	IN EFI_UINT32 SourceSize,
 	IN OUT VOID *Destination,
-	IN UINT32 DestinationSize,
+	IN EFI_UINT32 DestinationSize,
 	IN OUT VOID *Scratch,
-	IN UINT32 ScratchSize
+	IN EFI_UINT32 ScratchSize
 );
 
 typedef struct _EFI_DECOMPRESS_PROTOCOL {

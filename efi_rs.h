@@ -56,28 +56,28 @@ typedef enum {
 } EFI_RESET_TYPE;
 
 typedef struct {
-	UINT16 Year;
-	UINT8 Month;
-	UINT8 Day;
-	UINT8 Hour;
-	UINT8 Minute;
-	UINT8 Second;
-	UINT8 Pad1;
-	UINT32 Nanosecond;
-	INT16 TimeZone;
-	UINT8 Daylight;
-	UINT8 Pad2;
+	EFI_UINT16 Year;
+	EFI_UINT8 Month;
+	EFI_UINT8 Day;
+	EFI_UINT8 Hour;
+	EFI_UINT8 Minute;
+	EFI_UINT8 Second;
+	EFI_UINT8 Pad1;
+	EFI_UINT32 Nanosecond;
+	EFI_INT16 TimeZone;
+	EFI_UINT8 Daylight;
+	EFI_UINT8 Pad2;
 } EFI_TIME;
 
 typedef struct {
-	UINT32 Resolution;
-	UINT32 Accuracy;
-	BOOLEAN SetsToZero;
+	EFI_UINT32 Resolution;
+	EFI_UINT32 Accuracy;
+	EFI_BOOLEAN SetsToZero;
 } EFI_TIME_CAPABILITIES;
 
 // NOTE: EFI_VARIABLE_AUTHENTICATION is deprecated
 typedef struct {
-	UINT64 MonotonicCount;
+	EFI_UINT64 MonotonicCount;
 	//WIN_CERTIFICATE_UEFI_GUID AuthInfo;
 } EFI_VARIABLE_AUTHENTICATION;
 
@@ -87,37 +87,37 @@ typedef struct {
 } EFI_VARIABLE_AUTHENTICATION_2;
 
 typedef struct {
-	UINT8 Version;
-	UINT8 Type;
-	UINT32 MetadataSize;
-	UINT32 Flags;
+	EFI_UINT8 Version;
+	EFI_UINT8 Type;
+	EFI_UINT32 MetadataSize;
+	EFI_UINT32 Flags;
 } EFI_VARIABLE_AUTHENTICATION_3;
 
 typedef struct {
-	UINT8 Type;
-	UINT32 IdSize;
-	//UINT8 Id[IdSize];
+	EFI_UINT8 Type;
+	EFI_UINT32 IdSize;
+	//EFI_UINT8 Id[IdSize];
 } EFI_VARIABLE_AUTHENTICATION_3_CERT_ID;
 
 typedef struct {
-	UINT32 NonceSize;
-	//UINT8 Nonce[NonceSize];
+	EFI_UINT32 NonceSize;
+	//EFI_UINT8 Nonce[NonceSize];
 } EFI_VARIABLE_AUTHENTICATION_3_NONCE;
 
 typedef struct {
 	EFI_GUID CapsuleGuid;
-	UINT32 HeaderSize;
-	UINT32 Flags;
-	UINT32 CapsuleImageSize;
+	EFI_UINT32 HeaderSize;
+	EFI_UINT32 Flags;
+	EFI_UINT32 CapsuleImageSize;
 } EFI_CAPSULE_HEADER;
 
 typedef struct {
-	UINT32 CapsuleArrayNumber;
+	EFI_UINT32 CapsuleArrayNumber;
 	VOID *CapsulePtr[1];
 } EFI_CAPSULE_TABLE;
 
 typedef struct {
-	UINT64 Length;
+	EFI_UINT64 Length;
 	union {
 		EFI_PHYSICAL_ADDRESS DataBlock;
 		EFI_PHYSICAL_ADDRESS ContinuationPointer;
@@ -126,43 +126,43 @@ typedef struct {
 
 typedef struct {
 	EFI_PHYSICAL_ADDRESS Address;
-	UINT64 Length;
+	EFI_UINT64 Length;
 } EFI_MEMORY_RANGE;
 
 typedef struct {
 	EFI_CAPSULE_HEADER Header;
-	UINT32 OsRequestedMemoryType;
-	UINT64 NumberOfMemoryRanges;
+	EFI_UINT32 OsRequestedMemoryType;
+	EFI_UINT64 NumberOfMemoryRanges;
 	EFI_MEMORY_RANGE MemoryRanges[];
 } EFI_MEMORY_RANGE_CAPSULE;
 
 typedef struct {
-	UINT64 FirmwareMemoryRequirement;
-	UINT64 NumberOfMemoryRanges;
+	EFI_UINT64 FirmwareMemoryRequirement;
+	EFI_UINT64 NumberOfMemoryRanges;
 } EFI_MEMORY_RANGE_CAPSULE_RESULT;
 
 typedef struct {
-	UINT32 VariableTotalSize;
-	UINT32 Reserved;
+	EFI_UINT32 VariableTotalSize;
+	EFI_UINT32 Reserved;
 	EFI_GUID CapsuleGuid;
 	EFI_TIME CapsuleProcessed;
 	EFI_STATUS CapsuleStatus;
 } EFI_CAPSULE_RESULT_VARIABLE_HEADER;
 
 typedef struct {
-	UINT16 Version;
-	UINT8 PayloadIndex;
-	UINT8 UpdateImageIndex;
+	EFI_UINT16 Version;
+	EFI_UINT8 PayloadIndex;
+	EFI_UINT8 UpdateImageIndex;
 	EFI_GUID UpdateImageTypeId;
 	//CHAR16 CapsuleFileName[];
 	//CHAR16 CapsuleTarget[];
 } EFI_CAPSULE_RESULT_VARIABLE_FMP;
 
 typedef struct {
-	UINT32 Version;
-	UINT32 CapsuleId;
-	UINT32 RespLength;
-	UINT8 Resp[];
+	EFI_UINT32 Version;
+	EFI_UINT32 CapsuleId;
+	EFI_UINT32 RespLength;
+	EFI_UINT8 Resp[];
 } EFI_CAPSULE_RESULT_VARIABLE_JSON;
 
 typedef
@@ -181,31 +181,31 @@ EFI_STATUS
 typedef
 EFI_STATUS
 (EFIAPI *EFI_GET_WAKEUP_TIME)(
-	OUT BOOLEAN *Enable,
-	OUT BOOLEAN *Pending,
+	OUT EFI_BOOLEAN *Enable,
+	OUT EFI_BOOLEAN *Pending,
 	OUT EFI_TIME *Time
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SET_WAKEUP_TIME)(
-	IN BOOLEAN Enable,
+	IN EFI_BOOLEAN Enable,
 	IN EFI_TIME *Time
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SET_VIRTUAL_ADDRESS_MAP)(
-	IN UINTN MemoryMapSize,
-	IN UINTN DescriptorSize,
-	IN UINT32 DescriptorVersion,
+	IN EFI_UINTN MemoryMapSize,
+	IN EFI_UINTN DescriptorSize,
+	IN EFI_UINT32 DescriptorVersion,
 	IN EFI_MEMORY_DESCRIPTOR *VirtualMap
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_CONVERT_POINTER)(
-	IN UINTN DebugDisposition,
+	IN EFI_UINTN DebugDisposition,
 	IN VOID **Address
 );
 
@@ -214,15 +214,15 @@ EFI_STATUS
 (EFIAPI *EFI_GET_VARIABLE)(
 	IN CHAR16 *VariableName,
 	IN EFI_GUID *VendorGuid,
-	OUT UINT32 *Attributes OPTIONAL,
-	IN OUT UINTN *DataSize,
+	OUT EFI_UINT32 *Attributes OPTIONAL,
+	IN OUT EFI_UINTN *DataSize,
 	OUT VOID *Data OPTIONAL
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_GET_NEXT_VARIABLE_NAME)(
-	IN OUT UINTN *VariableNameSize,
+	IN OUT EFI_UINTN *VariableNameSize,
 	IN OUT CHAR16 *VariableName,
 	IN OUT EFI_GUID *VendorGuid
 );
@@ -232,15 +232,15 @@ EFI_STATUS
 (EFIAPI *EFI_SET_VARIABLE)(
 	IN CHAR16 *VariableName,
 	IN EFI_GUID *VendorGuid,
-	IN UINT32 Attributes,
-	IN UINTN DataSize,
+	IN EFI_UINT32 Attributes,
+	IN EFI_UINTN DataSize,
 	IN VOID *Data
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_GET_NEXT_HIGH_MONOTONIC_COUNT)(
-	OUT UINT32 *HighCount
+	OUT EFI_UINT32 *HighCount
 );
 
 typedef
@@ -248,7 +248,7 @@ EFI_STATUS
 (EFIAPI *EFI_RESET_SYSTEM)(
 	IN EFI_RESET_TYPE ResetType,
 	IN EFI_STATUS ResetStatus,
-	IN UINTN DataSize,
+	IN EFI_UINTN DataSize,
 	IN VOID *ResetData OPTIONAL
 );
 
@@ -256,7 +256,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_UPDATE_CAPSULE)(
 	IN EFI_CAPSULE_HEADER **CapsuleHeaderArray,
-	IN UINTN CapsuleCount,
+	IN EFI_UINTN CapsuleCount,
 	IN EFI_PHYSICAL_ADDRESS ScatterGatherList OPTIONAL
 );
 
@@ -264,18 +264,18 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_QUERY_CAPSULE_CAPABILITIES)(
 	IN EFI_CAPSULE_HEADER **CapsuleHeaderArray,
-	IN UINTN CapsuleCount,
-	OUT UINT64 *MaximumCapsuleSize,
+	IN EFI_UINTN CapsuleCount,
+	OUT EFI_UINT64 *MaximumCapsuleSize,
 	OUT EFI_RESET_TYPE *ResetType
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_QUERY_VARIABLE_INFO)(
-	IN UINT32 Attributes,
-	OUT UINT64 *MaximumVariableStorageSize,
-	OUT UINT64 *RemainingVariableStorageSize,
-	OUT UINT64 *MaximumVariableSize
+	IN EFI_UINT32 Attributes,
+	OUT EFI_UINT64 *MaximumVariableStorageSize,
+	OUT EFI_UINT64 *RemainingVariableStorageSize,
+	OUT EFI_UINT64 *MaximumVariableSize
 );
 
 // EFI Runtime Services

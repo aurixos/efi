@@ -84,22 +84,22 @@ typedef struct _EFI_CONFIGURATION_TABLE {
 } EFI_CONFIGURATION_TABLE;
 
 typedef struct _EFI_RT_PROPERTIES_TABLE {
-	UINT16 Version;
-	UINT16 Length;
-	UINT32 RuntimeServicesSupported;
+	EFI_UINT16 Version;
+	EFI_UINT16 Length;
+	EFI_UINT32 RuntimeServicesSupported;
 } EFI_RT_PROPERTIES_TABLE;
 
 typedef struct _EFI_MEMORY_ATTRIBUTES_TABLE {
-	UINT32 Version;
-	UINT32 NumberOfEntries;
-	UINT32 DescriptorSize;
-	UINT32 Flags;
+	EFI_UINT32 Version;
+	EFI_UINT32 NumberOfEntries;
+	EFI_UINT32 DescriptorSize;
+	EFI_UINT32 Flags;
 	//EFI_MEMORY_DESCRIPTOR Entry[1];
 } EFI_MEMORY_ATTRIBUTES_TABLE;
 
 typedef struct _EFI_CONFORMANCE_PROFILES_TABLE {
-	UINT16 Version;
-	UINT16 NumberOfProfiles;
+	EFI_UINT16 Version;
+	EFI_UINT16 NumberOfProfiles;
 	//EFI_GUID ConformanceProfiles[];
 } EFI_CONFORMANCE_PROFILES_TABLE;
 
@@ -107,7 +107,7 @@ typedef struct _EFI_SYSTEM_TABLE {
 	EFI_TABLE_HEADER Hdr;
 
 	CHAR16 *FirmwareVendor;
-	UINT32 FirmwareRevision;
+	EFI_UINT32 FirmwareRevision;
 	EFI_HANDLE ConsoleInHandle;
 	EFI_SIMPLE_TEXT_INPUT_PROTOCOL *ConIn;
 	EFI_HANDLE ConsoleOutHandle;
@@ -116,14 +116,14 @@ typedef struct _EFI_SYSTEM_TABLE {
 	EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *StdErr;
 	EFI_RUNTIME_SERVICES *RuntimeServices;
 	EFI_BOOT_SERVICES *BootServices;
-	UINTN NumberOfTableEntries;
+	EFI_UINTN NumberOfTableEntries;
 	EFI_CONFIGURATION_TABLE *ConfigurationTable;
 } EFI_SYSTEM_TABLE;
 
 typedef struct _EFI_SYSTEM_TABLE_POINTER {
-	UINT64 Signature;
+	EFI_UINT64 Signature;
 	EFI_PHYSICAL_ADDRESS EfiSystemTableBase;
-	UINT32 Crc32;
+	EFI_UINT32 Crc32;
 } EFI_SYSTEM_TABLE_POINTER;
 
 #endif /* EFI_SYSTEM_TABLE_H */

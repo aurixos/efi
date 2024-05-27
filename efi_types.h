@@ -1,42 +1,52 @@
 #ifndef EFI_TYPES_H
 #define EFI_TYPES_H
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-// Wide character
-typedef uint_least16_t char16_t;
+// Standard Data types
+typedef char int8_t;
+typedef unsigned char uint8_t;
+typedef short int16_t;
+typedef unsigned short uint16_t;
+typedef int int32_t;
+typedef unsigned int uint32_t;
+#if defined(_X64)
+typedef long int64_t;
+typedef unsigned long uint64_t;
+#elif defined (_X32)
+typedef long long int64_t;
+typedef unsigned long long uint64_t;
+#else
+#error _X32/_X64 is undefined!
+#endif
 
 // Common UEFI Data types
-typedef uint8_t BOOLEAN;
-typedef int8_t INT8;
-typedef uint8_t UINT8;
-typedef int16_t INT16;
-typedef uint16_t UINT16;
-typedef int32_t INT32;
-typedef uint32_t UINT32;
-typedef int64_t INT64;
-typedef uint64_t UINT64;
-typedef int64_t INTN;
-typedef uint64_t UINTN;
+typedef int8_t EFI_INT8;
+typedef uint8_t EFI_UINT8;
+typedef int16_t EFI_INT16;
+typedef uint16_t EFI_UINT16;
+typedef int32_t EFI_INT32;
+typedef uint32_t EFI_UINT32;
+typedef int64_t EFI_INT64;
+typedef uint64_t EFI_UINT64;
+typedef int64_t EFI_INTN;
+typedef uint64_t EFI_UINTN;
 typedef char CHAR8;
-typedef char16_t CHAR16;
+typedef uint16_t CHAR16;
 typedef void VOID;
 
-typedef BOOLEAN BOOL;
-typedef INT32 INT;
+typedef EFI_INT32 EFI_INT;
 
-#define TRUE 1
-#define FALSE 0
+typedef enum _EFI_BOOLEAN {
+	EFI_TRUE = 1,
+	EFI_FALSE = 0
+} EFI_BOOLEAN;
 
 typedef struct {
-	UINT64 Uint64;
-	UINT64 Uint64_1;
-} UINT128;
+	EFI_UINT64 Uint64;
+	EFI_UINT64 Uint64_1;
+} EFI_UINT128;
 
-typedef long INTPTR;
-typedef unsigned long UINTPTR;
+typedef long EFI_INTPTR;
+typedef unsigned long EFI_UINTPTR;
 
 typedef long SSIZE;
 typedef unsigned long SIZE;
@@ -46,11 +56,11 @@ typedef __builtin_va_list VA_LIST;
 #define va_arg(ap, type) __builtin_va_arg(ap, type)
 #define va_end(ap) __builtin_va_end(ap)
 
-typedef UINTN EFI_STATUS;
+typedef EFI_UINTN EFI_STATUS;
 typedef VOID *EFI_HANDLE;
 typedef VOID *EFI_EVENT;
-typedef UINT64 EFI_LBA;
-typedef UINTN EFI_TPL;
+typedef EFI_UINT64 EFI_LBA;
+typedef EFI_UINTN EFI_TPL;
 
 // https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Base.h
 #define IN
@@ -63,43 +73,43 @@ typedef UINTN EFI_TPL;
 #define EFIAPI __attribute__((ms_abi))
 
 // EFI Physical Address
-typedef UINT64 EFI_PHYSICAL_ADDRESS;
+typedef EFI_UINT64 EFI_PHYSICAL_ADDRESS;
 
 // EFI Virtual Address
-typedef UINT64 EFI_VIRTUAL_ADDRESS;
+typedef EFI_UINT64 EFI_VIRTUAL_ADDRESS;
 
 // Task Priority Level
-typedef UINTN EFI_TPL;
+typedef EFI_UINTN EFI_TPL;
 
 // String ID
-typedef UINT16 EFI_STRING_ID;
+typedef EFI_UINT16 EFI_STRING_ID;
 
 // HII Handle
 typedef VOID *EFI_HII_HANDLE;
 
 // LBA
-typedef UINT64 EFI_LBA;
+typedef EFI_UINT64 EFI_LBA;
 
 // EFI IPv4 Address
 typedef struct {
-	UINT8 Addr[4];
+	EFI_UINT8 Addr[4];
 } EFI_IPv4_ADDRESS;
 
 // EFI IPv6 Address
 typedef struct {
-	UINT8 Addr[16];
+	EFI_UINT8 Addr[16];
 } EFI_IPv6_ADDRESS;
 
 // EFI IP Address
 typedef union {
-	UINT32 Addr[4];
+	EFI_UINT32 Addr[4];
 	EFI_IPv4_ADDRESS v4;
 	EFI_IPv6_ADDRESS v6;
 } EFI_IP_ADDRESS;
 
 // EFI Mac Address
 typedef struct {
-	UINT8 Addr[32];
+	EFI_UINT8 Addr[32];
 } EFI_MAC_ADDRESS;
 
 // EFI Status Codes
@@ -229,36 +239,36 @@ typedef struct {
 
 // EFI_GUID
 typedef struct {
-	UINT32 Data1;
-	UINT16 Data2;
-	UINT16 Data3;
-	UINT8 Data4[8];
+	EFI_UINT32 Data1;
+	EFI_UINT16 Data2;
+	EFI_UINT16 Data3;
+	EFI_UINT8 Data4[8];
 } EFI_GUID;
 
 // MBR Partition Entry
 #pragma pack(1)
 typedef struct {
-	UINT8 BootIndicator;
-	UINT8 StartHead;
-	UINT8 StartSector;
-	UINT8 StartTrack;
-	UINT8 OSIndicator;
-	UINT8 EndHead;
-	UINT8 EndSector;
-	UINT8 EndTrack;
-	UINT8 StartingLBA[4];
-	UINT8 SizeInLBA[4];
+	EFI_UINT8 BootIndicator;
+	EFI_UINT8 StartHead;
+	EFI_UINT8 StartSector;
+	EFI_UINT8 StartTrack;
+	EFI_UINT8 OSIndicator;
+	EFI_UINT8 EndHead;
+	EFI_UINT8 EndSector;
+	EFI_UINT8 EndTrack;
+	EFI_UINT8 StartingLBA[4];
+	EFI_UINT8 SizeInLBA[4];
 } MBR_PARTITION_RECORD;
 #pragma pack()
 
 // Master Boot Record
 #pragma pack(1)
 typedef struct {
-	UINT8 BootStrapCode[440];
-	UINT8 UniqueMbrSignature[4];
-	UINT8 Unknown[2];
+	EFI_UINT8 BootStrapCode[440];
+	EFI_UINT8 UniqueMbrSignature[4];
+	EFI_UINT8 Unknown[2];
 	MBR_PARTITION_RECORD Partition[4];
-	UINT16 Signature;
+	EFI_UINT16 Signature;
 } MASTER_BOOT_RECORD;
 #pragma pack()
 
@@ -269,7 +279,7 @@ typedef struct {
 	EFI_GUID UniquePartitionGUID;
 	EFI_LBA StartingLBA;
 	EFI_LBA EndingLBA;
-	UINT64 Attributes;
+	EFI_UINT64 Attributes;
 	CHAR16 PartitionName[36];
 } EFI_PARTITION_ENTRY;
 #pragma pack()

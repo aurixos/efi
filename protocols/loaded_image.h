@@ -18,7 +18,7 @@ EFI_STATUS
 );
 
 typedef struct _EFI_LOADED_IMAGE_PROTOCOL {
-	UINT32 Revision;
+	EFI_UINT32 Revision;
 	EFI_HANDLE ParentHandle;
 	EFI_SYSTEM_TABLE *SystemTable;
 
@@ -27,11 +27,11 @@ typedef struct _EFI_LOADED_IMAGE_PROTOCOL {
 	EFI_DEVICE_PATH_PROTOCOL *FilePath;
 	VOID *Reserved;
 
-	UINT32 LoadOptionsSize;
+	EFI_UINT32 LoadOptionsSize;
 	VOID *LoadOptions;
 
 	VOID *ImageBase;
-	UINT64 ImageSize;
+	EFI_UINT64 ImageSize;
 	EFI_MEMORY_TYPE ImageCodeType;
 	EFI_MEMORY_TYPE ImageDataType;
 	EFI_IMAGE_UNLOAD Unload;

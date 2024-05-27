@@ -30,7 +30,7 @@ EFI_STATUS
 (EFIAPI *EFI_DRIVER_BINDING_PROTOCOL_STOP)(
 	IN EFI_DRIVER_BINDING_PROTOCOL *This,
 	IN EFI_HANDLE ControllerHandle,
-	IN UINTN NumberOfChildren,
+	IN EFI_UINTN NumberOfChildren,
 	IN EFI_DEVICE_PATH_PROTOCOL *ChildHandleBuffer OPTIONAL
 );
 
@@ -38,7 +38,7 @@ typedef struct _EFI_DRIVER_BINDING_PROTOCOL {
 	EFI_DRIVER_BINDING_PROTOCOL_SUPPORTED Supported;
 	EFI_DRIVER_BINDING_PROTOCOL_START Start;
 	EFI_DRIVER_BINDING_PROTOCOL_STOP Stop;
-	UINT32 Version;
+	EFI_UINT32 Version;
 	EFI_HANDLE ImageHandle;
 	EFI_HANDLE DriverBindingHandle;
 } EFI_DRIVER_BINDING_PROTOCOL;
@@ -127,7 +127,7 @@ EFI_STATUS
 	IN EFI_DRIVER_DIAGNOSTIC_TYPE DiagnosticType,
 	IN CHAR8 *Language,
 	OUT EFI_GUID **ErrorType,
-	OUT UINTN *BufferSize,
+	OUT EFI_UINTN *BufferSize,
 	OUT CHAR16 **Buffer
 );
 
@@ -214,12 +214,12 @@ typedef enum {
 
 typedef struct {
 	CHAR8 *CLPCommand;
-	UINT32 CLPCommandLength;
+	EFI_UINT32 CLPCommandLength;
 	CHAR8 *CLPReturnString;
-	UINT32 CLPReturnStringLength;
-	UINT8 CLPCmdStatus;
-	UINT8 CLPErrorValue;
-	UINT16 CLPMsgCode;
+	EFI_UINT32 CLPReturnStringLength;
+	EFI_UINT8 CLPCmdStatus;
+	EFI_UINT8 CLPErrorValue;
+	EFI_UINT16 CLPMsgCode;
 } EFI_CONFIGURE_CLP_PARAMETER_BLK;
 
 typedef
@@ -228,10 +228,10 @@ EFI_STATUS
 	IN EFI_PLATFORM_TO_DRIVER_CONFIGURATION_PROTOCOL *This,
 	IN EFI_HANDLE ControllerHandle,
 	IN EFI_HANDLE ChildHandle OPTIONAL,
-	IN UINTN *Instance,
+	IN EFI_UINTN *Instance,
 	OUT EFI_GUID **ParameterTypeGuid,
 	OUT VOID **ParameterBlock,
-	OUT UINTN *ParameterBlockSize
+	OUT EFI_UINTN *ParameterBlockSize
 );
 
 typedef
@@ -240,10 +240,10 @@ EFI_STATUS
 	IN EFI_PLATFORM_TO_DRIVER_CONFIGURATION_PROTOCOL *This,
 	IN EFI_HANDLE ControllerHandle,
 	IN EFI_HANDLE ChildHandle OPTIONAL,
-	IN UINTN *Instance,
+	IN EFI_UINTN *Instance,
 	IN EFI_GUID *ParameterTypeGuid,
 	IN VOID *ParameterBlock,
-	IN UINTN ParameterBlockSize,
+	IN EFI_UINTN ParameterBlockSize,
 	IN EFI_PLATFORM_CONFIGURATION_ACTION ConfigurationAction
 );
 
@@ -261,8 +261,8 @@ typedef struct _EFI_PLATFORM_TO_DRIVER_CONFIGURATION_PROTOCOL {
 typedef struct _EFI_DRIVER_SUPPORTED_EFI_VERSION_PROTOCOL EFI_DRIVER_SUPPORTED_EFI_VERSION_PROTOCOL;
 
 typedef struct _EFI_DRIVER_SUPPORTED_EFI_VERSION_PROTOCOL {
-	UINT32 Length;
-	UINT32 FirmwareVersion;
+	EFI_UINT32 Length;
+	EFI_UINT32 FirmwareVersion;
 } EFI_DRIVER_SUPPORTED_EFI_VERSION_PROTOCOL;
 
 ////
@@ -274,7 +274,7 @@ typedef struct _EFI_DRIVER_SUPPORTED_EFI_VERSION_PROTOCOL {
 typedef struct _EFI_DRIVER_FAMILY_OVERRIDE_PROTOCOL EFI_DRIVER_FAMILY_OVERRIDE_PROTOCOL;
 
 typedef
-UINT32
+EFI_UINT32
 (EFIAPI *EFI_DRIVER_FAMILY_OVERRIDE_GET_VERSION)(
 	IN EFI_DRIVER_FAMILY_OVERRIDE_PROTOCOL *This
 );
@@ -303,7 +303,7 @@ typedef enum {
 typedef struct {
 	EFI_HII_HANDLE HiiHandle;
 	EFI_STRING_ID StringId;
-	UINT64 MessageCode;
+	EFI_UINT64 MessageCode;
 } EFI_DRIVER_HEALTH_HII_MESSAGE;
 
 typedef
@@ -320,8 +320,8 @@ EFI_STATUS
 typedef
 EFI_STATUS
 (EFIAPI *EFI_DRIVER_HEALTH_REPAIR_NOTIFY)(
-	IN UINTN Value,
-	IN UINTN Limit
+	IN EFI_UINTN Value,
+	IN EFI_UINTN Limit
 );
 
 typedef
@@ -357,14 +357,14 @@ typedef struct {
 } EFI_ADAPTER_INFO_MEDIA_STATE;
 
 typedef struct {
-	BOOLEAN iSsciIpv4BootCapablity;
-	BOOLEAN iScsiIpv6BootCapablity;
-	BOOLEAN FCoeBootCapablity;
-	BOOLEAN OffloadCapability;
-	BOOLEAN iScsiMpioCapability;
-	BOOLEAN iScsiIpv4Boot;
-	BOOLEAN iScsiIpv6Boot;
-	BOOLEAN FCoeBoot;
+	EFI_BOOLEAN iSsciIpv4BootCapablity;
+	EFI_BOOLEAN iScsiIpv6BootCapablity;
+	EFI_BOOLEAN FCoeBootCapablity;
+	EFI_BOOLEAN OffloadCapability;
+	EFI_BOOLEAN iScsiMpioCapability;
+	EFI_BOOLEAN iScsiIpv4Boot;
+	EFI_BOOLEAN iScsiIpv6Boot;
+	EFI_BOOLEAN FCoeBoot;
 } EFI_ADAPTER_INFO_NETWORK_BOOT;
 
 typedef struct {
@@ -372,16 +372,16 @@ typedef struct {
 } EFI_ADAPTER_INFO_SAN_MAC_ADDRESS;
 
 typedef struct {
-	BOOLEAN Ipv6Support;
+	EFI_BOOLEAN Ipv6Support;
 } EFI_ADAPTER_INFO_UNDI_IPV6_SUPPORT;
 
 typedef struct {
-	UINT8 MediaType;
+	EFI_UINT8 MediaType;
 } EFI_ADAPTER_INFO_MEDIA_TYPE;
 
 typedef struct {
-	UINTN CdatSize;
-	UINT8 Cdat[];
+	EFI_UINTN CdatSize;
+	EFI_UINT8 Cdat[];
 } EFI_ADAPTER_INFO_CDAT_TYPE_TYPE;
 
 typedef
@@ -390,7 +390,7 @@ EFI_STATUS
 	IN EFI_ADAPTER_INFORMATION_PROTOCOL *This,
 	IN EFI_GUID *InformationType,
 	OUT VOID **InformationBlock,
-	OUT UINTN *InformationBlockSize
+	OUT EFI_UINTN *InformationBlockSize
 );
 
 typedef
@@ -399,7 +399,7 @@ EFI_STATUS
 	IN EFI_ADAPTER_INFORMATION_PROTOCOL *This,
 	IN EFI_GUID *InformationType,
 	IN VOID *InformationBlock,
-	IN UINTN InformationBlockSize
+	IN EFI_UINTN InformationBlockSize
 );
 
 typedef
@@ -407,7 +407,7 @@ EFI_STATUS
 (EFIAPI *EFI_ADAPTER_INFO_GET_SUPPORTED_TYPES)(
 	IN EFI_ADAPTER_INFORMATION_PROTOCOL *This,
 	OUT EFI_GUID **InfoTypesBuffer,
-	OUT UINTN *InfoTypesBufferCount
+	OUT EFI_UINTN *InfoTypesBufferCount
 );
 
 typedef struct _EFI_ADAPTER_INFORMATION_PROTOCOL {

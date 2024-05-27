@@ -16,8 +16,8 @@ EFI_STATUS
 (EFIAPI *EFI_LOAD_FILE)(
 	IN EFI_LOAD_FILE_PROTOCOL *This,
 	IN EFI_DEVICE_PATH_PROTOCOL *FilePath,
-	IN BOOLEAN BootPolicy,
-	IN OUT UINTN *BufferSize,
+	IN EFI_BOOLEAN BootPolicy,
+	IN OUT EFI_UINTN *BufferSize,
 	IN VOID *Buffer OPTIONAL
 );
 
@@ -58,7 +58,7 @@ typedef struct _EFI_FILE_PROTOCOL EFI_FILE_PROTOCOL;
 typedef struct {
 	EFI_EVENT Event;
 	EFI_STATUS Status;
-	UINTN BufferSize;
+	EFI_UINTN BufferSize;
 	VOID *Buffer;
 } EFI_FILE_IO_TOKEN;
 
@@ -68,8 +68,8 @@ EFI_STATUS
 	IN EFI_FILE_PROTOCOL *This,
 	OUT EFI_FILE_PROTOCOL **NewHandle,
 	IN CHAR16 *FileName,
-	IN UINT64 OpenMode,
-	IN UINT64 Attributes
+	IN EFI_UINT64 OpenMode,
+	IN EFI_UINT64 Attributes
 );
 
 typedef
@@ -88,7 +88,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_FILE_READ)(
 	IN EFI_FILE_PROTOCOL *This,
-	IN OUT UINTN *BufferSize,
+	IN OUT EFI_UINTN *BufferSize,
 	OUT VOID *Buffer
 );
 
@@ -96,7 +96,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_FILE_WRITE)(
 	IN EFI_FILE_PROTOCOL *This,
-	IN OUT UINTN *BufferSize,
+	IN OUT EFI_UINTN *BufferSize,
 	IN VOID *Buffer
 );
 
@@ -104,14 +104,14 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_FILE_GET_POSITION)(
 	IN EFI_FILE_PROTOCOL *This,
-	OUT UINT64 Position
+	OUT EFI_UINT64 Position
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_FILE_SET_POSITION)(
 	IN EFI_FILE_PROTOCOL *This,
-	IN UINT64 Position
+	IN EFI_UINT64 Position
 );
 
 typedef
@@ -119,7 +119,7 @@ EFI_STATUS
 (EFIAPI *EFI_FILE_GET_INFO)(
 	IN EFI_FILE_PROTOCOL *This,
 	IN EFI_GUID *InformationType,
-	IN OUT UINTN *BufferSize,
+	IN OUT EFI_UINTN *BufferSize,
 	OUT VOID *Buffer
 );
 
@@ -128,7 +128,7 @@ EFI_STATUS
 (EFIAPI *EFI_FILE_SET_INFO)(
 	IN EFI_FILE_PROTOCOL *This,
 	IN EFI_GUID *InformationType,
-	IN UINTN BufferSize,
+	IN EFI_UINTN BufferSize,
 	IN VOID *Buffer
 );
 
@@ -144,8 +144,8 @@ EFI_STATUS
 	IN EFI_FILE_PROTOCOL *This,
 	OUT EFI_FILE_PROTOCOL **NewHandle,
 	IN CHAR16 *FileName,
-	IN UINT64 OpenMode,
-	IN UINT64 Attributes,
+	IN EFI_UINT64 OpenMode,
+	IN EFI_UINT64 Attributes,
 	IN OUT EFI_FILE_IO_TOKEN *Token
 );
 
@@ -171,7 +171,7 @@ EFI_STATUS
 );
 
 typedef struct _EFI_FILE_PROTOCOL {
-	UINT64 Revision;
+	EFI_UINT64 Revision;
 
 	EFI_FILE_OPEN Open;
 	EFI_FILE_CLOSE Close;
@@ -209,7 +209,7 @@ EFI_STATUS
 );
 
 typedef struct _EFI_SIMPLE_FILE_SYSTEM_PROTOCOL {
-	UINT64 Revision;
+	EFI_UINT64 Revision;
 	EFI_SIMPLE_FILE_SYSTEM_PROTOCOL_OPEN_VOLUME OpenVolume;
 } EFI_SIMPLE_FILE_SYSTEM_PROTOCOL;
 
@@ -227,9 +227,9 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_DISK_READ)(
 	IN EFI_DISK_IO_PROTOCOL *This,
-	IN UINT32 MediaId,
-	IN UINT64 Offset,
-	IN UINTN BufferSize,
+	IN EFI_UINT32 MediaId,
+	IN EFI_UINT64 Offset,
+	IN EFI_UINTN BufferSize,
 	OUT VOID *Buffer
 );
 
@@ -237,14 +237,14 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_DISK_WRITE)(
 	IN EFI_DISK_IO_PROTOCOL *This,
-	IN UINT32 MediaId,
-	IN UINT64 Offset,
-	IN UINTN BufferSize,
+	IN EFI_UINT32 MediaId,
+	IN EFI_UINT64 Offset,
+	IN EFI_UINTN BufferSize,
 	IN VOID *Buffer
 );
 
 typedef struct _EFI_DISK_IO_PROTOCOL {
-	UINT64 Revision;
+	EFI_UINT64 Revision;
 	EFI_DISK_READ ReadDisk;
 	EFI_DISK_WRITE WriteDisk;
 } EFI_DISK_IO_PROTOCOL;
@@ -274,10 +274,10 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_DISK_READ_EX)(
 	IN EFI_DISK_IO2_PROTOCOL *This,
-	IN UINT32 MediaId,
-	IN UINT64 Offset,
+	IN EFI_UINT32 MediaId,
+	IN EFI_UINT64 Offset,
 	IN OUT EFI_DISK_IO2_TOKEN *Token,
-	IN UINTN BufferSize,
+	IN EFI_UINTN BufferSize,
 	OUT VOID *Buffer
 );
 
@@ -285,10 +285,10 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_DISK_WRITE_EX)(
 	IN EFI_DISK_IO2_PROTOCOL *This,
-	IN UINT32 MediaId,
-	IN UINT64 Offset,
+	IN EFI_UINT32 MediaId,
+	IN EFI_UINT64 Offset,
 	IN OUT EFI_DISK_IO2_TOKEN *Token,
-	IN UINTN BufferSize,
+	IN EFI_UINTN BufferSize,
 	IN VOID *Buffer
 );
 
@@ -300,7 +300,7 @@ EFI_STATUS
 );
 
 typedef struct _EFI_DISK_IO2_PROTOCOL {
-	UINT64 Revision;
+	EFI_UINT64 Revision;
 	EFI_DISK_CANCEL_EX Cancel;
 	EFI_DISK_READ_EX ReadDiskEx;
 	EFI_DISK_WRITE_EX WriteDiskEx;
@@ -319,34 +319,34 @@ typedef struct _EFI_DISK_IO2_PROTOCOL {
 typedef struct _EFI_BLOCK_IO_PROTOCOL EFI_BLOCK_IO_PROTOCOL;
 
 typedef struct {
-	UINT32 MediaId;
-	BOOLEAN RemovableMedia;
-	BOOLEAN MediaPresent;
-	BOOLEAN LogicalPartition;
-	BOOLEAN ReadOnly;
-	BOOLEAN WriteCaching;
-	UINT32 BlockSize;
-	UINT32 IoAlign;
+	EFI_UINT32 MediaId;
+	EFI_BOOLEAN RemovableMedia;
+	EFI_BOOLEAN MediaPresent;
+	EFI_BOOLEAN LogicalPartition;
+	EFI_BOOLEAN ReadOnly;
+	EFI_BOOLEAN WriteCaching;
+	EFI_UINT32 BlockSize;
+	EFI_UINT32 IoAlign;
 	EFI_LBA LastBlock;
 	EFI_LBA LowestAlignedLba;
-	UINT32 LogicalBlocksPerPhysicalBlock;
-	UINT32 OptimalTransferLengthGranularity;
+	EFI_UINT32 LogicalBlocksPerPhysicalBlock;
+	EFI_UINT32 OptimalTransferLengthGranularity;
 } EFI_BLOCK_IO_MEDIA;
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_RESET)(
 	IN EFI_BLOCK_IO_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_READ)(
 	IN EFI_BLOCK_IO_PROTOCOL *This,
-	IN UINT32 MediaId,
+	IN EFI_UINT32 MediaId,
 	IN EFI_LBA LBA,
-	IN UINTN BufferSize,
+	IN EFI_UINTN BufferSize,
 	OUT VOID *Buffer
 );
 
@@ -354,9 +354,9 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_WRITE)(
 	IN EFI_BLOCK_IO_PROTOCOL *This,
-	IN UINT32 MediaId,
+	IN EFI_UINT32 MediaId,
 	IN EFI_LBA LBA,
-	IN UINTN BufferSize,
+	IN EFI_UINTN BufferSize,
 	IN VOID *Buffer
 );
 
@@ -367,7 +367,7 @@ EFI_STATUS
 );
 
 typedef struct _EFI_BLOCK_IO_PROTOCOL {
-	UINT64 Revision;
+	EFI_UINT64 Revision;
 	EFI_BLOCK_IO_MEDIA *Media;
 	EFI_BLOCK_RESET Reset;
 	EFI_BLOCK_READ ReadBlocks;
@@ -392,17 +392,17 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_RESET_EX)(
 	IN EFI_BLOCK_IO2_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_READ_EX)(
 	IN EFI_BLOCK_IO2_PROTOCOL *This,
-	IN UINT32 MediaId,
+	IN EFI_UINT32 MediaId,
 	IN EFI_LBA LBA,
 	IN OUT EFI_BLOCK_IO2_TOKEN *Token,
-	IN UINTN BufferSize,
+	IN EFI_UINTN BufferSize,
 	OUT VOID *Buffer
 );
 
@@ -410,10 +410,10 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_WRITE_EX)(
 	IN EFI_BLOCK_IO2_PROTOCOL *This,
-	IN UINT32 MediaId,
+	IN EFI_UINT32 MediaId,
 	IN EFI_LBA LBA,
 	IN OUT EFI_BLOCK_IO2_TOKEN *Token,
-	IN UINTN BufferSize,
+	IN EFI_UINTN BufferSize,
 	IN VOID *Buffer
 );
 
@@ -447,44 +447,44 @@ typedef struct _EFI_BLOCK_IO_CRYPTO_PROTOCOL EFI_BLOCK_IO_CRYPTO_PROTOCOL;
 
 typedef struct {
 	EFI_GUID Algorithm;
-	UINT64 KeySize;
-	UINT64 CryptoBlockSizeBitMask;
+	EFI_UINT64 KeySize;
+	EFI_UINT64 CryptoBlockSizeBitMask;
 } EFI_BLOCK_IO_CRYPTO_CAPABILITY;
 
 typedef struct {
-	BOOLEAN Supported;
-	UINT64 KeyCount;
-	UINT64 CapabilityCount;
+	EFI_BOOLEAN Supported;
+	EFI_UINT64 KeyCount;
+	EFI_UINT64 CapabilityCount;
 	EFI_BLOCK_IO_CRYPTO_CAPABILITY Capabilities [1];
 } EFI_BLOCK_IO_CRYPTO_CAPABILITIES;
 
 typedef struct {
-	UINT64 Index;
+	EFI_UINT64 Index;
 	EFI_GUID KeyOwnerGuid;
 	EFI_BLOCK_IO_CRYPTO_CAPABILITY Capability;
 	VOID *CryptoKey;
 } EFI_BLOCK_IO_CRYPTO_CONFIGURATION_TABLE_ENTRY;
 
 typedef struct {
-	UINT64 Index;
+	EFI_UINT64 Index;
 	EFI_GUID KeyOwnerGuid;
 	EFI_BLOCK_IO_CRYPTO_CAPABILITY Capability;
 } EFI_BLOCK_IO_CRYPTO_RESPONSE_CONFIGURATION_ENTRY;
 
 typedef struct {
-	UINT64 InputSize;
+	EFI_UINT64 InputSize;
 } EFI_BLOCK_IO_CRYPTO_IV_INPUT;
 
 typedef struct {
 	EFI_BLOCK_IO_CRYPTO_IV_INPUT Header;
-	UINT64 CryptoBlockNumber;
-	UINT64 CryptoBlockByteSize;
+	EFI_UINT64 CryptoBlockNumber;
+	EFI_UINT64 CryptoBlockByteSize;
 } EFI_BLOCK_IO_CRYPTO_IV_INPUT_AES_XTS;
 
 typedef struct {
 	EFI_BLOCK_IO_CRYPTO_IV_INPUT Header;
-	UINT64 CryptoBlockByteOffset;
-	UINT64 CryptoBlockByteSize;
+	EFI_UINT64 CryptoBlockByteOffset;
+	EFI_UINT64 CryptoBlockByteSize;
 } EFI_BLOCK_IO_CRYPTO_IV_INPUT_AES_CBC_MICROSOFT_BITLOCKER;
 
 typedef struct {
@@ -496,7 +496,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_IO_CRYPTO_RESET)(
 	IN EFI_BLOCK_IO_CRYPTO_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef
@@ -510,7 +510,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_IO_CRYPTO_SET_CONFIGURATION)(
 	IN EFI_BLOCK_IO_CRYPTO_PROTOCOL *This,
-	IN UINT64 ConfigurationCount,
+	IN EFI_UINT64 ConfigurationCount,
 	IN EFI_BLOCK_IO_CRYPTO_CONFIGURATION_TABLE_ENTRY *ConfigurationTable,
 	OUT EFI_BLOCK_IO_CRYPTO_RESPONSE_CONFIGURATION_ENTRY
 	*ResultingTable OPTIONAL
@@ -520,8 +520,8 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_IO_CRYPTO_GET_CONFIGURATION)(
 	IN EFI_BLOCK_IO_CRYPTO_PROTOCOL *This,
-	IN UINT64 StartIndex,
-	IN UINT64 ConfigurationCount,
+	IN EFI_UINT64 StartIndex,
+	IN EFI_UINT64 ConfigurationCount,
 	IN EFI_GUID *KeyOwnerGuid OPTIONAL,
 	OUT EFI_BLOCK_IO_CRYPTO_RESPONSE_CONFIGURATION_ENTRY *ConfigurationTable
 );
@@ -530,12 +530,12 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_IO_CRYPTO_READ_EXTENDED)(
 	IN EFI_BLOCK_IO_CRYPTO_PROTOCOL *This,
-	IN UINT32 MediaId,
+	IN EFI_UINT32 MediaId,
 	IN EFI_LBA LBA,
 	IN OUT EFI_BLOCK_IO_CRYPTO_TOKEN *Token,
-	IN UINT64 BufferSize,
+	IN EFI_UINT64 BufferSize,
 	OUT VOID *Buffer,
-	IN UINT64 *Index OPTIONAL,
+	IN EFI_UINT64 *Index OPTIONAL,
 	IN VOID *CryptoIvInput OPTIONAL
 );
 
@@ -543,12 +543,12 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_BLOCK_IO_CRYPTO_WRITE_EXTENDED)(
 	IN EFI_BLOCK_IO_CRYPTO_PROTOCOL *This,
-	IN UINT32 MediaId,
+	IN EFI_UINT32 MediaId,
 	IN EFI_LBA LBA,
 	IN OUT EFI_BLOCK_IO_CRYPTO_TOKEN *Token,
-	IN UINT64 BufferSize,
+	IN EFI_UINT64 BufferSize,
 	IN VOID *Buffer,
-	IN UINT64 *Index, OPTIONAL
+	IN EFI_UINT64 *Index, OPTIONAL
 	IN VOID *CryptoIvInput OPTIONAL
 );
 
@@ -589,15 +589,15 @@ typedef
 EFI_STATUS*
 (EFIAPI *EFI_BLOCK_ERASE)(
 	IN EFI_BLOCK_IO_PROTOCOL *This,
-	IN UINT32 MediaId,
+	IN EFI_UINT32 MediaId,
 	IN EFI_LBA LBA,
 	IN OUT EFI_ERASE_BLOCK_TOKEN *Token,
-	IN UINTN Size
+	IN EFI_UINTN Size
 );
 
 typedef struct _EFI_ERASE_BLOCK_PROTOCOL {
-	UINT64 Revision;
-	UINT32 EraseLengthGranularity;
+	EFI_UINT64 Revision;
+	EFI_UINT32 EraseLengthGranularity;
 	EFI_BLOCK_ERASE EraseBlocks;
 } EFI_ERASE_BLOCK_PROTOCOL;
 
@@ -637,56 +637,56 @@ typedef struct _EFI_ERASE_BLOCK_PROTOCOL {
 
 typedef struct _EFI_ATA_PASS_THRU_PROTOCOL EFI_ATA_PASS_THRU_PROTOCOL;
 
-typedef UINT8 EFI_ATA_PASS_THRU_CMD_PROTOCOL;
-typedef UINT8 EFI_ATA_PASS_THRU_LENGTH;
+typedef EFI_UINT8 EFI_ATA_PASS_THRU_CMD_PROTOCOL;
+typedef EFI_UINT8 EFI_ATA_PASS_THRU_LENGTH;
 
 typedef struct {
-	UINT32 Attributes;
-	UINT32 IoAlign;
+	EFI_UINT32 Attributes;
+	EFI_UINT32 IoAlign;
 } EFI_ATA_PASS_THRU_MODE;
 
 typedef struct {
-	UINT8 Reserved1[2];
-	UINT8 AtaCommand;
-	UINT8 AtaFeatures;
-	UINT8 AtaSectorNumber;
-	UINT8 AtaCylinderLow;
-	UINT8 AtaCylinderHigh;
-	UINT8 AtaDeviceHead;
-	UINT8 AtaSectorNumberExp;
-	UINT8 AtaCylinderLowExp;
-	UINT8 AtaCylinderHighExp;
-	UINT8 AtaFeaturesExp;
-	UINT8 AtaSectorCount;
-	UINT8 AtaSectorCountExp;
-	UINT8 Reserved2[6];
+	EFI_UINT8 Reserved1[2];
+	EFI_UINT8 AtaCommand;
+	EFI_UINT8 AtaFeatures;
+	EFI_UINT8 AtaSectorNumber;
+	EFI_UINT8 AtaCylinderLow;
+	EFI_UINT8 AtaCylinderHigh;
+	EFI_UINT8 AtaDeviceHead;
+	EFI_UINT8 AtaSectorNumberExp;
+	EFI_UINT8 AtaCylinderLowExp;
+	EFI_UINT8 AtaCylinderHighExp;
+	EFI_UINT8 AtaFeaturesExp;
+	EFI_UINT8 AtaSectorCount;
+	EFI_UINT8 AtaSectorCountExp;
+	EFI_UINT8 Reserved2[6];
 } EFI_ATA_COMMAND_BLOCK;
 
 typedef struct {
-	UINT8 Reserved1[2];
-	UINT8 AtaStatus;
-	UINT8 AtaError;
-	UINT8 AtaSectorNumber;
-	UINT8 AtaCylinderLow;
-	UINT8 AtaCylinderHigh;
-	UINT8 AtaDeviceHead;
-	UINT8 AtaSectorNumberExp;
-	UINT8 AtaCylinderLowExp;
-	UINT8 AtaCylinderHighExp;
-	UINT8 Reserved2;
-	UINT8 AtaSectorCount;
-	UINT8 AtaSectorCountExp;
-	UINT8 Reserved3[6];
+	EFI_UINT8 Reserved1[2];
+	EFI_UINT8 AtaStatus;
+	EFI_UINT8 AtaError;
+	EFI_UINT8 AtaSectorNumber;
+	EFI_UINT8 AtaCylinderLow;
+	EFI_UINT8 AtaCylinderHigh;
+	EFI_UINT8 AtaDeviceHead;
+	EFI_UINT8 AtaSectorNumberExp;
+	EFI_UINT8 AtaCylinderLowExp;
+	EFI_UINT8 AtaCylinderHighExp;
+	EFI_UINT8 Reserved2;
+	EFI_UINT8 AtaSectorCount;
+	EFI_UINT8 AtaSectorCountExp;
+	EFI_UINT8 Reserved3[6];
 } EFI_ATA_STATUS_BLOCK;
 
 typedef struct {
 	EFI_ATA_STATUS_BLOCK *Asb;
 	EFI_ATA_COMMAND_BLOCK *Acb;
-	UINT64 Timeout;
+	EFI_UINT64 Timeout;
 	VOID *InDataBuffer;
 	VOID *OutDataBuffer;
-	UINT32 InTransferLength;
-	UINT32 OutTransferLength;
+	EFI_UINT32 InTransferLength;
+	EFI_UINT32 OutTransferLength;
 	EFI_ATA_PASS_THRU_CMD_PROTOCOL Protocol;
 	EFI_ATA_PASS_THRU_LENGTH Length;
 } EFI_ATA_PASS_THRU_COMMAND_PACKET;
@@ -695,8 +695,8 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_ATA_PASS_THRU_PASSTHRU)(
 	IN EFI_ATA_PASS_THRU_PROTOCOL *This,
-	IN UINT16 Port,
-	IN UINT16 PortMultiplierPort,
+	IN EFI_UINT16 Port,
+	IN EFI_UINT16 PortMultiplierPort,
 	IN OUT EFI_ATA_PASS_THRU_COMMAND_PACKET *Packet,
 	IN EFI_EVENT Event OPTIONAL
 );
@@ -705,23 +705,23 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_ATA_PASS_THRU_GET_NEXT_PORT)(
 	IN EFI_ATA_PASS_THRU_PROTOCOL *This,
-	IN OUT UINT16 *Port
+	IN OUT EFI_UINT16 *Port
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_ATA_PASS_THRU_GET_NEXT_DEVICE)(
 	IN EFI_ATA_PASS_THRU_PROTOCOL *This,
-	IN UINT16 Port,
-	IN OUT UINT16 *PortMultiplierPort
+	IN EFI_UINT16 Port,
+	IN OUT EFI_UINT16 *PortMultiplierPort
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_ATA_PASS_THRU_BUILD_DEVICE_PATH)(
 	IN EFI_ATA_PASS_THRU_PROTOCOL *This,
-	IN UINT16 Port,
-	IN UINT16 PortMultiplierPort,
+	IN EFI_UINT16 Port,
+	IN EFI_UINT16 PortMultiplierPort,
 	OUT EFI_DEVICE_PATH_PROTOCOL **DevicePath
 );
 
@@ -730,23 +730,23 @@ EFI_STATUS
 (EFIAPI *EFI_ATA_PASS_THRU_GET_DEVICE)(
 	IN EFI_ATA_PASS_THRU_PROTOCOL *This,
 	IN EFI_DEVICE_PATH_PROTOCOL *DevicePath,
-	OUT UINT16 *Port,
-	OUT UINT16 *PortMultiplierPort
+	OUT EFI_UINT16 *Port,
+	OUT EFI_UINT16 *PortMultiplierPort
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_ATA_PASS_THRU_RESET_PORT)(
 	IN EFI_ATA_PASS_THRU_PROTOCOL *This,
-	IN UINT16 *Port
+	IN EFI_UINT16 *Port
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_ATA_PASS_THRU_RESET_DEVICE)(
 	IN EFI_ATA_PASS_THRU_PROTOCOL *This,
-	IN UINT16 Port,
-	IN UINT16 PortMultiplierPort
+	IN EFI_UINT16 Port,
+	IN EFI_UINT16 PortMultiplierPort
 );
 
 typedef struct _EFI_ATA_PASS_THRU_PROTOCOL {
@@ -772,24 +772,24 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_STORAGE_SECURITY_RECEIVE_DATA)(
 	IN EFI_STORAGE_SECURITY_COMMAND_PROTOCOL *This,
-	IN UINT32 MediaId,
-	IN UINT64 Timeout,
-	IN UINT8 SecurityProtocol,
-	IN UINT16 SecurityProtocolSpecificData,
-	IN UINTN PayloadBufferSize,
+	IN EFI_UINT32 MediaId,
+	IN EFI_UINT64 Timeout,
+	IN EFI_UINT8 SecurityProtocol,
+	IN EFI_UINT16 SecurityProtocolSpecificData,
+	IN EFI_UINTN PayloadBufferSize,
 	OUT VOID *PayloadBuffer,
-	OUT UINTN *PayloadTransferSize
+	OUT EFI_UINTN *PayloadTransferSize
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_STORAGE_SECURITY_SEND_DATA)(
 	IN EFI_STORAGE_SECURITY_COMMAND_PROTOCOL *This,
-	IN UINT32 MediaId,
-	IN UINT64 Timeout,
-	IN UINT8 SecurityProtocolId,
-	IN UINT16 SecurityProtocolSpecificData,
-	IN UINTN PayloadBufferSize,
+	IN EFI_UINT32 MediaId,
+	IN EFI_UINT64 Timeout,
+	IN EFI_UINT8 SecurityProtocolId,
+	IN EFI_UINT16 SecurityProtocolSpecificData,
+	IN EFI_UINTN PayloadBufferSize,
 	IN VOID *PayloadBuffer
 );
 
@@ -825,45 +825,45 @@ typedef struct _EFI_STORAGE_SECURITY_COMMAND_PROTOCOL {
 typedef struct _EFI_NVM_EXPRESS_PASS_THRU_PROTOCOL EFI_NVM_EXPRESS_PASS_THRU_PROTOCOL;
 
 typedef struct {
-	UINT32 OpCode : 8;
-	UINT32 FusedOperation : 2;
-	UINT32 Reserved : 22;
+	EFI_UINT32 OpCode : 8;
+	EFI_UINT32 FusedOperation : 2;
+	EFI_UINT32 Reserved : 22;
 } NVME_CDW0;
 
 typedef struct {
 	NVME_CDW0 Cdw0;
-	UINT8 Flags;
-	UINT32 Nsid;
-	UINT32 Cdw2;
-	UINT32 Cdw3;
-	UINT32 Cdw10;
-	UINT32 Cdw11;
-	UINT32 Cdw12;
-	UINT32 Cdw13;
-	UINT32 Cdw14;
-	UINT32 Cdw15;
+	EFI_UINT8 Flags;
+	EFI_UINT32 Nsid;
+	EFI_UINT32 Cdw2;
+	EFI_UINT32 Cdw3;
+	EFI_UINT32 Cdw10;
+	EFI_UINT32 Cdw11;
+	EFI_UINT32 Cdw12;
+	EFI_UINT32 Cdw13;
+	EFI_UINT32 Cdw14;
+	EFI_UINT32 Cdw15;
 } EFI_NVM_EXPRESS_COMMAND;
 
 typedef struct {
-	UINT32 DW0;
-	UINT32 DW1;
-	UINT32 DW2;
-	UINT32 DW3;
+	EFI_UINT32 DW0;
+	EFI_UINT32 DW1;
+	EFI_UINT32 DW2;
+	EFI_UINT32 DW3;
 } EFI_NVM_EXPRESS_COMPLETION;
 
 typedef struct {
-	UINT32 Attributes;
-	UINT32 IoAlign;
-	UINT32 NvmeVersion;
+	EFI_UINT32 Attributes;
+	EFI_UINT32 IoAlign;
+	EFI_UINT32 NvmeVersion;
 } EFI_NVM_EXPRESS_PASS_THRU_MODE;
 
 typedef struct {
-	UINT64 CommandTimeout;
+	EFI_UINT64 CommandTimeout;
 	VOID *TransferBuffer OPTIONAL;
-	UINT32 TransferLength OPTIONAL;
+	EFI_UINT32 TransferLength OPTIONAL;
 	VOID *MetaDataBuffer OPTIONAL;
-	UINT32 MetadataLength OPTIONAL;
-	UINT8 QueueType;
+	EFI_UINT32 MetadataLength OPTIONAL;
+	EFI_UINT8 QueueType;
 	EFI_NVM_EXPRESS_COMMAND *NvmeCmd;
 	EFI_NVM_EXPRESS_COMPLETION *NvmeCompletion;
 } EFI_NVM_EXPRESS_PASS_THRU_COMMAND_PACKET;
@@ -872,7 +872,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_NVM_EXPRESS_PASS_THRU_PASSTHRU)(
 	IN EFI_NVM_EXPRESS_PASS_THRU_PROTOCOL This,
-	IN UINT32 NamespaceId,
+	IN EFI_UINT32 NamespaceId,
 	IN OUT EFI_NVM_EXPRESS_PASS_THRU_COMMAND_PACKET *Packet,
 	IN EFI_EVENT Event OPTIONAL
 );
@@ -881,14 +881,14 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_NVM_EXPRESS_PASS_THRU_GET_NEXT_NAMESPACE)(
 	IN EFI_NVM_EXPRESS_PASS_THRU_PROTOCOL *This,
-	IN OUT UINT32 *NamespaceId
+	IN OUT EFI_UINT32 *NamespaceId
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_NVM_EXPRESS_PASS_THRU_BUILD_DEVICE_PATH)(
 	IN EFI_NVM_EXPRESS_PASS_THRU_PROTOCOL *This,
-	IN UINT32 NamespaceId,
+	IN EFI_UINT32 NamespaceId,
 	OUT EFI_DEVICE_PATH_PROTOCOL **DevicePath
 );
 
@@ -897,7 +897,7 @@ EFI_STATUS
 (EFIAPI *EFI_NVM_EXPRESS_PASS_THRU_GET_NAMESPACE)(
 	IN EFI_NVM_EXPRESS_PASS_THRU_PROTOCOL *This,
 	IN EFI_DEVICE_PATH_PROTOCOL *DevicePath,
-	OUT UINT32 *NamespaceId
+	OUT EFI_UINT32 *NamespaceId
 );
 
 typedef struct _EFI_NVM_EXPRESS_PASS_THRU_PROTOCOL {
@@ -936,27 +936,27 @@ typedef enum {
 } EFI_SD_MMC_RESPONSE_TYPE;
 
 typedef struct {
-	UINT16 CommandIndex;
-	UINT32 CommandArgument;
-	UINT32 CommandType;
-	UINT32 ResponseType;
+	EFI_UINT16 CommandIndex;
+	EFI_UINT32 CommandArgument;
+	EFI_UINT32 CommandType;
+	EFI_UINT32 ResponseType;
 } EFI_SD_MMC_COMMAND_BLOCK;
 
 typedef struct {
-	UINT32 Resp0;
-	UINT32 Resp1;
-	UINT32 Resp2;
-	UINT32 Resp3;
+	EFI_UINT32 Resp0;
+	EFI_UINT32 Resp1;
+	EFI_UINT32 Resp2;
+	EFI_UINT32 Resp3;
 } EFI_SD_MMC_STATUS_BLOCK;
 
 typedef struct {
 	EFI_SD_MMC_COMMAND_BLOCK *SdMmcCmdBlk;
 	EFI_SD_MMC_STATUS_BLOCK *SdMmcStatusBlk;
-	UINT64 Timeout;
+	EFI_UINT64 Timeout;
 	VOID *InDataBuffer;
 	VOID *OutDataBuffer;
-	UINT32 InTransferLength;
-	UINT32 OutTransferLength;
+	EFI_UINT32 InTransferLength;
+	EFI_UINT32 OutTransferLength;
 	EFI_STATUS TransactionStatus;
 } EFI_SD_MMC_PASS_THRU_COMMAND_PACKET;
 
@@ -964,7 +964,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SD_MMC_PASS_THRU_PASSTHRU)(
 	IN EFI_SD_MMC_PASS_THRU_PROTOCOL *This,
-	IN UINT8 Slot,
+	IN EFI_UINT8 Slot,
 	IN OUT EFI_SD_MMC_PASS_THRU_COMMAND_PACKET *Packet,
 	IN EFI_EVENT Event OPTIONAL
 );
@@ -973,14 +973,14 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SD_MMC_PASS_THRU_GET_NEXT_SLOT)(
 	IN EFI_SD_MMC_PASS_THRU_PROTOCOL *This,
-	IN OUT UINT8 *Slot
+	IN OUT EFI_UINT8 *Slot
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SD_MMC_PASS_THRU_BUILD_DEVICE_PATH)(
 	IN EFI_SD_MMC_PASS_THRU_PROTOCOL *This,
-	IN UINT8 Slot,
+	IN EFI_UINT8 Slot,
 	OUT EFI_DEVICE_PATH_PROTOCOL **DevicePath
 );
 
@@ -989,18 +989,18 @@ EFI_STATUS
 (EFIAPI *EFI_SD_MMC_PASS_THRU_GET_SLOT_NUMBER)(
 	IN EFI_SD_MMC_PASS_THRU_PROTOCOL *This,
 	IN EFI_DEVICE_PATH_PROTOCOL *DevicePath,
-	OUT UINT8 *Slot
+	OUT EFI_UINT8 *Slot
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SD_MMC_PASS_THRU_RESET_DEVICE)(
 	IN EFI_SD_MMC_PASS_THRU_PROTOCOL *This,
-	IN UINT8 Slot
+	IN EFI_UINT8 Slot
 );
 
 typedef struct _EFI_SD_MMC_PASS_THRU_PROTOCOL {
-	UINTN IoAlign;
+	EFI_UINTN IoAlign;
 	EFI_SD_MMC_PASS_THRU_PASSTHRU PassThru;
 	EFI_SD_MMC_PASS_THRU_GET_NEXT_SLOT GetNextSlot;
 	EFI_SD_MMC_PASS_THRU_BUILD_DEVICE_PATH BuildDevicePath;
@@ -1019,8 +1019,8 @@ typedef struct _EFI_RAM_DISK_PROTOCOL EFI_RAM_DISK_PROTOCOL;
 typedef
 EFI_STATUS
 (EFIAPI *EFI_RAM_DISK_REGISTER_RAMDISK)(
-	IN UINT64 RamDiskBase,
-	IN UINT64 RamDiskSize,
+	IN EFI_UINT64 RamDiskBase,
+	IN EFI_UINT64 RamDiskSize,
 	IN EFI_GUID *RamDiskType,
 	IN EFI_DEVICE_PATH_PROTOCOL *ParentDevicePath OPTIONAL,
 	OUT EFI_DEVICE_PATH_PROTOCOL **DevicePath
@@ -1052,10 +1052,10 @@ typedef struct _EFI_PARTITION_INFO_PROTOCOL EFI_PARTITION_INFO_PROTOCOL;
 
 #pragma pack(1)
 typedef struct _EFI_PARTITION_INFO_PROTOCOL {
-	UINT32 Revision;
-	UINT32 Type;
-	UINT8 System;
-	UINT8 Reserved[7];
+	EFI_UINT32 Revision;
+	EFI_UINT32 Type;
+	EFI_UINT8 System;
+	EFI_UINT8 Reserved[7];
 	union {
 		MBR_PARTITION_RECORD Mbr;
 		EFI_PARTITION_ENTRY Gpt;
@@ -1086,73 +1086,73 @@ typedef struct _EFI_NVDIMM_LABEL_PROTOCOL EFI_NVDIMM_LABEL_PROTOCOL;
 
 typedef struct EFI_NVDIMM_LABEL_INDEX_BLOCK {
 	CHAR8 Sig[EFI_NVDIMM_LABEL_INDEX_SIG_LEN];
-	UINT8 Flags[3];
-	UINT8 LabelSize;
-	UINT32 Seq;
-	UINT64 MyOff;
-	UINT64 MySize;
-	UINT64 OtherOff;
-	UINT64 LabelOff;
-	UINT32 NSlot;
-	UINT16 Major;
-	UINT16 Minor;
-	UINT64 Checksum;
-	UINT8 Free[];
+	EFI_UINT8 Flags[3];
+	EFI_UINT8 LabelSize;
+	EFI_UINT32 Seq;
+	EFI_UINT64 MyOff;
+	EFI_UINT64 MySize;
+	EFI_UINT64 OtherOff;
+	EFI_UINT64 LabelOff;
+	EFI_UINT32 NSlot;
+	EFI_UINT16 Major;
+	EFI_UINT16 Minor;
+	EFI_UINT64 Checksum;
+	EFI_UINT8 Free[];
 } EFI_NVDIMM_LABEL_INDEX_BLOCK;
 
 typedef struct EFI_NVDIMM_LABEL {
 	EFI_GUID Uuid;
 	CHAR8 Name[EFI_NVDIMM_LABEL_NAME_LEN];
-	UINT32 Flags;
-	UINT16 NLabel;
-	UINT16 Position;
-	UINT64 SetCookie;
-	UINT64 LbaSize;
-	UINT64 Dpa;
-	UINT64 RawSize;
-	UINT32 Slot;
-	UINT8 Alignment;
-	UINT8 Reserved[3];
+	EFI_UINT32 Flags;
+	EFI_UINT16 NLabel;
+	EFI_UINT16 Position;
+	EFI_UINT64 SetCookie;
+	EFI_UINT64 LbaSize;
+	EFI_UINT64 Dpa;
+	EFI_UINT64 RawSize;
+	EFI_UINT32 Slot;
+	EFI_UINT8 Alignment;
+	EFI_UINT8 Reserved[3];
 	EFI_GUID TypeGuid;
 	EFI_GUID AddressAbstractionGuid;
-	UINT64 SPALocationCookie;
-	UINT8 Reserved1[80];
-	UINT64 Checksum;
+	EFI_UINT64 SPALocationCookie;
+	EFI_UINT8 Reserved1[80];
+	EFI_UINT64 Checksum;
 } EFI_NVDIMM_LABEL;
 
 typedef struct EFI_NVDIMM_LABEL_SET_COOKIE_MAP {
-	UINT64 RegionOffset;
-	UINT32 SerialNumber;
-	UINT16 VendorId;
-	UINT16 ManufacturingDate;
-	UINT8 ManufacturingLocation;
-	UINT8 Reserved[31];
+	EFI_UINT64 RegionOffset;
+	EFI_UINT32 SerialNumber;
+	EFI_UINT16 VendorId;
+	EFI_UINT16 ManufacturingDate;
+	EFI_UINT8 ManufacturingLocation;
+	EFI_UINT8 Reserved[31];
 } EFI_NVDIMM_LABEL_SET_COOKIE_MAP;
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_NVDIMM_LABEL_STORAGE_INFORMATION)(
 	IN EFI_NVDIMM_LABEL_PROTOCOL *This,
-	OUT UINT32 *SizeOfLabelStorageArea,
-	OUT UINT32 *MaxTransferLength
+	OUT EFI_UINT32 *SizeOfLabelStorageArea,
+	OUT EFI_UINT32 *MaxTransferLength
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_NVDIMM_LABEL_STORAGE_READ)(
 	IN CONST EFI_NVDIMM_LABEL_PROTOCOL *This,
-	IN UINT32 Offset,
-	IN UINT32 TransferLength,
-	OUT UINT8 *LabelData
+	IN EFI_UINT32 Offset,
+	IN EFI_UINT32 TransferLength,
+	OUT EFI_UINT8 *LabelData
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_NVDIMM_LABEL_STORAGE_WRITE)(
 	IN CONST EFI_NVDIMM_LABEL_PROTOCOL *This,
-	IN UINT32 Offset,
-	IN UINT32 TransferLength,
-	IN UINT8 *LabelData
+	IN EFI_UINT32 Offset,
+	IN EFI_UINT32 TransferLength,
+	IN EFI_UINT8 *LabelData
 );
 
 
@@ -1174,33 +1174,33 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_UFS_DEVICE_CONFIG_RW_DESCRIPTOR)(
 	IN EFI_UFS_DEVICE_CONFIG_PROTOCOL *This,
-	IN BOOLEAN Read,
-	IN UINT8 DescId,
-	IN UINT8 Index,
-	IN UINT8 Selector,
-	IN OUT UINT8 Descriptor,
-	IN OUT UINT32 *DescSize
+	IN EFI_BOOLEAN Read,
+	IN EFI_UINT8 DescId,
+	IN EFI_UINT8 Index,
+	IN EFI_UINT8 Selector,
+	IN OUT EFI_UINT8 Descriptor,
+	IN OUT EFI_UINT32 *DescSize
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_UFS_DEVICE_CONFIG_RW_FLAG)(
 	IN EFI_UFS_DEVICE_CONFIG_PROTOCOL *This,
-	IN BOOLEAN Read,
-	IN UINT8 FlagId,
-	IN OUT UINT8 *Flag
+	IN EFI_BOOLEAN Read,
+	IN EFI_UINT8 FlagId,
+	IN OUT EFI_UINT8 *Flag
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_UFS_DEVICE_CONFIG_RW_ATTRIBUTE)(
 	IN EFI_UFS_DEVICE_CONFIG_PROTOCOL *This,
-	IN BOOLEAN Read,
-	IN UINT8 AttrId,
-	IN UINT8 Index,
-	IN UINT8 Selector,
-	IN OUT UINT8 *Attribute,
-	IN OUT UINT32 *AttrSize
+	IN EFI_BOOLEAN Read,
+	IN EFI_UINT8 AttrId,
+	IN EFI_UINT8 Index,
+	IN EFI_UINT8 Selector,
+	IN OUT EFI_UINT8 *Attribute,
+	IN OUT EFI_UINT32 *AttrSize
 );
 
 typedef struct _EFI_UFS_DEVICE_CONFIG_PROTOCOL {

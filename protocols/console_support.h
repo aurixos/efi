@@ -34,7 +34,7 @@
 typedef struct _EFI_SIMPLE_TEXT_INPUT_PROTOCOL EFI_SIMPLE_TEXT_INPUT_PROTOCOL;
 
 typedef struct {
-	UINT16 ScanCode;
+	EFI_UINT16 ScanCode;
 	CHAR16 UnicodeChar;
 } EFI_INPUT_KEY;
 
@@ -49,7 +49,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_INPUT_RESET)(
 	IN EFI_SIMPLE_TEXT_INPUT_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef struct _EFI_SIMPLE_TEXT_INPUT_PROTOCOL {
@@ -112,10 +112,10 @@ typedef struct _EFI_SIMPLE_TEXT_INPUT_PROTOCOL {
 typedef struct _EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL;
 
 // Key Toggle State
-typedef UINT8 EFI_KEY_TOGGLE_STATE;
+typedef EFI_UINT8 EFI_KEY_TOGGLE_STATE;
 
 typedef struct {
-	UINT32 KeyShiftState;
+	EFI_UINT32 KeyShiftState;
 	EFI_KEY_TOGGLE_STATE KeyToggleState;
 } EFI_KEY_STATE;
 
@@ -128,7 +128,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_INPUT_RESET_EX)(
 	IN EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef
@@ -188,7 +188,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_TEXT_RESET)(
 	IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef 
@@ -209,23 +209,23 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_TEXT_QUERY_MODE)(
 	IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *This,
-	IN UINTN ModeNumber,
-	OUT UINTN *Columns,
-	OUT UINTN *Rows
+	IN EFI_UINTN ModeNumber,
+	OUT EFI_UINTN *Columns,
+	OUT EFI_UINTN *Rows
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_TEXT_SET_MODE)(
 	IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *This,
-	IN UINTN ModeNumber
+	IN EFI_UINTN ModeNumber
 );
 
 typedef 
 EFI_STATUS 
 (EFIAPI *EFI_TEXT_SET_ATTRIBUTE)(
 	IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *This,
-	IN UINTN Attribute
+	IN EFI_UINTN Attribute
 );
 
 typedef 
@@ -238,26 +238,26 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_TEXT_SET_CURSOR_POSITION)(
 	IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *This,
-	IN UINTN Column,
-	IN UINTN Row
+	IN EFI_UINTN Column,
+	IN EFI_UINTN Row
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_TEXT_ENABLE_CURSOR)(
 	IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *This,
-	IN BOOLEAN Visible
+	IN EFI_BOOLEAN Visible
 );
 
 typedef struct {
-	INT32 MaxNode;
+	EFI_INT32 MaxNode;
 
 	// Current settings
-	INT32 Mode;
-	INT32 Attribute;
-	INT32 CursorColumn;
-	INT32 CursorRow;
-	BOOLEAN CursorVisible;
+	EFI_INT32 Mode;
+	EFI_INT32 Attribute;
+	EFI_INT32 CursorColumn;
+	EFI_INT32 CursorRow;
+	EFI_BOOLEAN CursorVisible;
 } SIMPLE_TEXT_OUTPUT_MODE;
 
 typedef struct _EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL {
@@ -282,26 +282,26 @@ typedef struct _EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL {
 typedef struct _EFI_SIMPLE_POINTER_PROTOCOL EFI_SIMPLE_POINTER_PROTOCOL;
 
 typedef struct {
-	UINT64 ResolutionX;
-	UINT64 ResolutionY;
-	UINT64 ResolutionZ;
-	BOOLEAN LeftButton;
-	BOOLEAN RightButton;
+	EFI_UINT64 ResolutionX;
+	EFI_UINT64 ResolutionY;
+	EFI_UINT64 ResolutionZ;
+	EFI_BOOLEAN LeftButton;
+	EFI_BOOLEAN RightButton;
 } EFI_SIMPLE_POINTER_MODE;
 
 typedef struct {
-	INT32 RelativeMovementX;
-	INT32 RelativeMovementY;
-	INT32 RelativeMovementZ;
-	BOOLEAN LeftButton;
-	BOOLEAN RightButton;
+	EFI_INT32 RelativeMovementX;
+	EFI_INT32 RelativeMovementY;
+	EFI_INT32 RelativeMovementZ;
+	EFI_BOOLEAN LeftButton;
+	EFI_BOOLEAN RightButton;
 } EFI_SIMPLE_POINTER_STATE;
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SIMPLE_POINTER_RESET)(
 	IN EFI_SIMPLE_POINTER_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef
@@ -333,27 +333,27 @@ typedef struct _EFI_SIMPLE_POINTER_PROTOCOL {
 typedef struct _EFI_ABSOLUTE_POINTER_PROTOCOL EFI_ABSOLUTE_POINTER_PROTOCOL;
 
 typedef struct {
-	UINT64 AbsoluteMinX;
-	UINT64 AbsoluteMinY;
-	UINT64 AbsoluteMinZ;
-	UINT64 AbsoluteMaxX;
-	UINT64 AbsoluteMaxY;
-	UINT64 AbsoluteMaxZ;
-	UINT32 Attributes;
+	EFI_UINT64 AbsoluteMinX;
+	EFI_UINT64 AbsoluteMinY;
+	EFI_UINT64 AbsoluteMinZ;
+	EFI_UINT64 AbsoluteMaxX;
+	EFI_UINT64 AbsoluteMaxY;
+	EFI_UINT64 AbsoluteMaxZ;
+	EFI_UINT32 Attributes;
 } EFI_ABSOLUTE_POINTER_MODE;
 
 typedef struct {
-	UINT64 CurrentX;
-	UINT64 CurrentY;
-	UINT64 CurrentZ;
-	UINT32 ActiveButtons;
+	EFI_UINT64 CurrentX;
+	EFI_UINT64 CurrentY;
+	EFI_UINT64 CurrentZ;
+	EFI_UINT32 ActiveButtons;
 } EFI_ABSOLUTE_POINTER_STATE;
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_ABSOLUTE_POINTER_RESET)(
 	IN EFI_ABSOLUTE_POINTER_PROTOCOL *This,
-	IN BOOLEAN ExtendedVerification
+	IN EFI_BOOLEAN ExtendedVerification
 );
 
 typedef
@@ -411,15 +411,15 @@ typedef enum {
 } EFI_STOP_BITS_TYPE;
 
 typedef struct {
-	UINT32 ControlMask;
+	EFI_UINT32 ControlMask;
 
 	// Current Attributes
-	UINT32 Timeout;
-	UINT64 BaudRate;
-	UINT32 ReceiveFifoDepth;
-	UINT32 DataBits;
-	UINT32 Parity;
-	UINT32 StopBits;
+	EFI_UINT32 Timeout;
+	EFI_UINT64 BaudRate;
+	EFI_UINT32 ReceiveFifoDepth;
+	EFI_UINT32 DataBits;
+	EFI_UINT32 Parity;
+	EFI_UINT32 StopBits;
 } SERIAL_IO_MODE;
 
 typedef
@@ -432,11 +432,11 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SERIAL_SET_ATTRIBUTES)(
 	IN EFI_SERIAL_IO_PROTOCOL *This,
-	IN UINT64 BaudRate,
-	IN UINT32 ReceiveFifoDepth,
-	IN UINT32 Timeout,
+	IN EFI_UINT64 BaudRate,
+	IN EFI_UINT32 ReceiveFifoDepth,
+	IN EFI_UINT32 Timeout,
 	IN EFI_PARITY_TYPE Parity,
-	IN UINT8 DataBits,
+	IN EFI_UINT8 DataBits,
 	IN EFI_STOP_BITS_TYPE StopBits
 );
 
@@ -444,21 +444,21 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SERIAL_SET_CONTROL_BITS)(
 	IN EFI_SERIAL_IO_PROTOCOL *This,
-	IN UINT32 Control
+	IN EFI_UINT32 Control
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SERIAL_GET_CONTROL_BITS)(
 	IN EFI_SERIAL_IO_PROTOCOL *This,
-	OUT UINT32 *Control
+	OUT EFI_UINT32 *Control
 );
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SERIAL_WRITE)(
 	IN EFI_SERIAL_IO_PROTOCOL *This,
-	IN OUT UINTN *BufferSize,
+	IN OUT EFI_UINTN *BufferSize,
 	IN VOID *Buffer
 );
 
@@ -466,12 +466,12 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_SERIAL_READ)(
 	IN EFI_SERIAL_IO_PROTOCOL *This,
-	IN OUT UINTN *BufferSize,
+	IN OUT EFI_UINTN *BufferSize,
 	OUT VOID *Buffer
 );
 
 typedef struct _EFI_SERIAL_IO_PROTOCOL {
-	UINT32 Revision;
+	EFI_UINT32 Revision;
 	EFI_SERIAL_RESET Reset;
 	EFI_SERIAL_SET_ATTRIBUTES SetAttributes;
 	EFI_SERIAL_SET_CONTROL_BITS SetControl;
@@ -515,43 +515,43 @@ typedef enum {
 } EFI_GRAPHICS_OUTPUT_BLT_OPERATION;
 
 typedef struct {
-	UINT32 RedMask;
-	UINT32 GreenMask;
-	UINT32 BlueMask;
-	UINT32 ReservedMask;
+	EFI_UINT32 RedMask;
+	EFI_UINT32 GreenMask;
+	EFI_UINT32 BlueMask;
+	EFI_UINT32 ReservedMask;
 } EFI_PIXEL_BITMASK;
 
 typedef struct {
-	UINT32 Version;
-	UINT32 HorizontalResolution;
-	UINT32 VerticalResolution;
+	EFI_UINT32 Version;
+	EFI_UINT32 HorizontalResolution;
+	EFI_UINT32 VerticalResolution;
 	EFI_GRAPHICS_PIXEL_FORMAT PixelFormat;
 	EFI_PIXEL_BITMASK PixelInformation;
-	UINT32 PixelsPerScanLine;
+	EFI_UINT32 PixelsPerScanLine;
 } EFI_GRAPHICS_OUTPUT_MODE_INFORMATION;
 
 typedef struct {
-	UINT32 MaxMode;
-	UINT32 Mode;
+	EFI_UINT32 MaxMode;
+	EFI_UINT32 Mode;
 	EFI_GRAPHICS_OUTPUT_MODE_INFORMATION *Info;
-	UINTN SizeOfInfo;
+	EFI_UINTN SizeOfInfo;
 	EFI_PHYSICAL_ADDRESS FrameBufferBase;
-	UINTN FrameBufferSize;
+	EFI_UINTN FrameBufferSize;
 } EFI_GRAPHICS_OUTPUT_PROTOCOL_MODE;
 
 typedef struct {
-	UINT8 Blue;
-	UINT8 Green;
-	UINT8 Red;
-	UINT8 Reserved;
+	EFI_UINT8 Blue;
+	EFI_UINT8 Green;
+	EFI_UINT8 Red;
+	EFI_UINT8 Reserved;
 } EFI_GRAPHICS_OUTPUT_BLT_PIXEL;
 
 typedef
 EFI_STATUS
 (EFIAPI *EFI_GRAPHICS_OUTPUT_PROTOCOL_QUERY_MODE)(
 	IN EFI_GRAPHICS_OUTPUT_PROTOCOL *This,
-	IN UINT32 ModeNumber,
-	OUT UINTN *SizeOfInfo,
+	IN EFI_UINT32 ModeNumber,
+	OUT EFI_UINTN *SizeOfInfo,
 	OUT EFI_GRAPHICS_OUTPUT_MODE_INFORMATION **Info
 );
 
@@ -559,7 +559,7 @@ typedef
 EFI_STATUS
 (EFIAPI *EFI_GRAPHICS_OUTPUT_PROTOCOL_SET_MODE)(
 	IN EFI_GRAPHICS_OUTPUT_PROTOCOL *This,
-	IN UINT32 ModeNumber
+	IN EFI_UINT32 ModeNumber
 );
 
 typedef
@@ -568,13 +568,13 @@ EFI_STATUS
 	IN EFI_GRAPHICS_OUTPUT_PROTOCOL *This,
 	IN OUT EFI_GRAPHICS_OUTPUT_BLT_PIXEL *BltBuffer, OPTIONAL
 	IN EFI_GRAPHICS_OUTPUT_BLT_OPERATION BltOperation,
-	IN UINTN SourceX,
-	IN UINTN SourceY,
-	IN UINTN DestinationX,
-	IN UINTN DestinationY,
-	IN UINTN Width,
-	IN UINTN Height,
-	IN UINTN Delta OPTIONAL
+	IN EFI_UINTN SourceX,
+	IN EFI_UINTN SourceY,
+	IN EFI_UINTN DestinationX,
+	IN EFI_UINTN DestinationY,
+	IN EFI_UINTN Width,
+	IN EFI_UINTN Height,
+	IN EFI_UINTN Delta OPTIONAL
 );
 
 typedef struct _EFI_GRAPHICS_OUTPUT_PROTCOL {
@@ -585,13 +585,13 @@ typedef struct _EFI_GRAPHICS_OUTPUT_PROTCOL {
 } EFI_GRAPHICS_OUTPUT_PROTOCOL;
 
 typedef struct _EFI_EDID_DISCOVERED_PROTOCOL {
-	UINT32 SizeOfEdid;
-	UINT8 *Edid;
+	EFI_UINT32 SizeOfEdid;
+	EFI_UINT8 *Edid;
 } EFI_EDID_DISCOVERED_PROTOCOL;
 
 typedef struct _EFI_EDID_ACTIVE_PROTOCOL {
-	UINT32 SizeOfEdid;
-	UINT8 *Edid;
+	EFI_UINT32 SizeOfEdid;
+	EFI_UINT8 *Edid;
 } EFI_EDID_ACTIVE_PROTOCOL;
 
 typedef struct _EFI_EDID_OVERRIDE_PROTOCOL EFI_EDID_OVERRIDE_PROTOCOL;
@@ -601,9 +601,9 @@ EFI_STATUS
 (EFIAPI *EFI_EDID_OVERRIDE_PROTOCOL_GET_EDID)(
 	IN EFI_EDID_OVERRIDE_PROTOCOL *This,
 	IN EFI_HANDLE *ChildHandle,
-	OUT UINT32 *Attributes,
-	OUT UINTN *EdidSize,
-	OUT UINT8 **Edid
+	OUT EFI_UINT32 *Attributes,
+	OUT EFI_UINTN *EdidSize,
+	OUT EFI_UINT8 **Edid
 );
 
 typedef struct _EFI_EDID_OVERRIDE_PROTOCOL {
