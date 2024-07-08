@@ -2,35 +2,35 @@
 #define EFI_TYPES_H
 
 // Standard Data types
-typedef char int8_t;
-typedef unsigned char uint8_t;
-typedef short int16_t;
-typedef unsigned short uint16_t;
-typedef int int32_t;
-typedef unsigned int uint32_t;
+typedef char efi_int8_t;
+typedef unsigned char efi_uint8_t;
+typedef short efi_int16_t;
+typedef unsigned short efi_uint16_t;
+typedef efi_int efi_int32_t;
+typedef unsigned efi_int efi_uint32_t;
 #if defined(_X64)
-typedef long int64_t;
-typedef unsigned long uint64_t;
+typedef long efi_int64_t;
+typedef unsigned long efi_uint64_t;
 #elif defined (_X32)
-typedef long long int64_t;
-typedef unsigned long long uint64_t;
+typedef long long efi_int64_t;
+typedef unsigned long long efi_uint64_t;
 #else
 #error _X32/_X64 is undefined!
 #endif
 
 // Common UEFI Data types
-typedef int8_t EFI_INT8;
-typedef uint8_t EFI_UINT8;
-typedef int16_t EFI_INT16;
-typedef uint16_t EFI_UINT16;
-typedef int32_t EFI_INT32;
-typedef uint32_t EFI_UINT32;
-typedef int64_t EFI_INT64;
-typedef uint64_t EFI_UINT64;
-typedef int64_t EFI_INTN;
-typedef uint64_t EFI_UINTN;
+typedef efi_int8_t EFI_INT8;
+typedef efi_uint8_t EFI_UINT8;
+typedef efi_int16_t EFI_INT16;
+typedef efi_uint16_t EFI_UINT16;
+typedef efi_int32_t EFI_INT32;
+typedef efi_uint32_t EFI_UINT32;
+typedef efi_int64_t EFI_INT64;
+typedef efi_uint64_t EFI_UINT64;
+typedef efi_int64_t EFI_INTN;
+typedef efi_uint64_t EFI_UINTN;
 typedef char CHAR8;
-typedef uint16_t CHAR16;
+typedef efi_uint16_t CHAR16;
 typedef void VOID;
 
 typedef EFI_INT32 EFI_INT;
@@ -177,7 +177,7 @@ typedef struct {
 #define EFI_BACKGROUND_BROWN 0x60
 #define EFI_BACKGROUND_LIGHTGRAY 0x70
 
-// Converts Foreground and Background colors into a single value
+// Converts Foreground and Background colors efi_into a single value
 #define EFI_TEXT_ATTR(Foreground,Background) \
 	((Foreground) | ((Background) << 4))
 
