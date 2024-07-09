@@ -4,7 +4,7 @@
 #include "efi.h"
 #include "efi_st.h"
 
-#define EFI_ERROR(status) (((INTN)(status)) < 0)
+#define EFI_ERROR(status) (((EFI_INTN)(status)) < 0)
 
 #endif /* EFI_EFILIB_H */
 
