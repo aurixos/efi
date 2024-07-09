@@ -6,8 +6,8 @@ typedef char efi_int8_t;
 typedef unsigned char efi_uint8_t;
 typedef short efi_int16_t;
 typedef unsigned short efi_uint16_t;
-typedef efi_int efi_int32_t;
-typedef unsigned efi_int efi_uint32_t;
+typedef int efi_int32_t;
+typedef unsigned int efi_uint32_t;
 #if defined(_X64)
 typedef long efi_int64_t;
 typedef unsigned long efi_uint64_t;
