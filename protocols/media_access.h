@@ -41,6 +41,8 @@ typedef EFI_LOAD_FILE_PROTOCOL EFI_LOAD_FILE2_PROTOCOL;
 #define EFI_FILE_PROTOCOL_REVISION2								0x00020000
 #define EFI_FILE_PROTOCOL_LATEST_REVISION						EFI_FILE_PROTOCOL_REVISION2
 
+#define EFI_FILE_INFO_GUID										{0x09576e92,0x6d3f,0x11d2, {0x8e,0x39,0x00,0xa0,0xc9,0x69,0x72,0x3b}}
+
 #define EFI_FILE_MODE_READ										0x0000000000000001
 #define EFI_FILE_MODE_WRITE										0x0000000000000002
 #define EFI_FILE_MODE_CREATE									0x8000000000000000
@@ -61,6 +63,17 @@ typedef struct {
 	EFI_UINTN BufferSize;
 	VOID *Buffer;
 } EFI_FILE_IO_TOKEN;
+
+typedef struct {
+	EFI_UINT64 Size;
+	EFI_UINT64 FileSize;
+	EFI_UINT64 PhysicalSize;
+	EFI_TIME CreateTime;
+	EFI_TIME LastAccessTime;
+	EFI_TIME ModificationTime;
+	EFI_UINT64 Attribute;
+	CHAR16 FileName[256];
+} EFI_FILE_INFO;
 
 typedef
 EFI_STATUS
@@ -120,7 +133,7 @@ EFI_STATUS
 	IN EFI_FILE_PROTOCOL *This,
 	IN EFI_GUID *InformationType,
 	IN OUT EFI_UINTN *BufferSize,
-	OUT VOID *Buffer
+	OUT EFI_FILE_INFO *Buffer
 );
 
 typedef
@@ -129,7 +142,7 @@ EFI_STATUS
 	IN EFI_FILE_PROTOCOL *This,
 	IN EFI_GUID *InformationType,
 	IN EFI_UINTN BufferSize,
-	IN VOID *Buffer
+	IN EFI_FILE_INFO *Buffer
 );
 
 typedef
