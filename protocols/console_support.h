@@ -257,7 +257,7 @@ EFI_STATUS
 );
 
 typedef struct {
-	EFI_INT32 MaxNode;
+	EFI_INT32 MaxMode;
 
 	// Current settings
 	EFI_INT32 Mode;
